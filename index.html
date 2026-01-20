@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Evaluador de Comprensión Lectora</title>
     <style>
-                /* Variables de color y tema */
+        /* Variables de color y tema */
         :root {
             --primary: #4361ee;
             --primary-dark: #3a56d4;
@@ -640,7 +640,7 @@
             .options-container {
                 flex-direction: column;
                 align-items: center;
-        }
+            }
             
             .option-card {
                 width: 100%;
@@ -724,7 +724,7 @@
             </div>
         </div>
         
-                <!-- Pantalla para seleccionar tipo de examen -->
+        <!-- Pantalla para seleccionar tipo de examen -->
         <div id="exam-type-screen" class="container hidden">
             <h2>Selecciona el Tipo de Evaluación</h2>
             <p>Elige el tipo de evaluación que prefieres realizar:</p>
@@ -747,7 +747,7 @@
                     </div>
                     <p class="highlight">Simula un examen real</p>
                 </div>
-            </div> <!-- ¡ESTE CIERRE FALTABA! -->
+            </div>
             
             <div style="text-align: center; margin-top: 30px;">
                 <button id="back-to-summary" class="btn btn-secondary">Volver al Resumen</button>
@@ -856,785 +856,759 @@
             generalExamTextsShown: []
         };
 
-        // Datos de textos y preguntas (se proporcionarán 10 textos con 3 preguntas cada uno)
-        const texts = [
-            {
-                id: 1,
-                title: "Deforestación y Cambio Climático en los Andes Bolivianos: Una Perspectiva Histórica y Evolutiva",
-                content: `La región andina de Bolivia ha experimentado una transformación profunda de sus ecosistemas forestales desde tiempos precolombinos hasta la actualidad. Este artículo revisa la secuencia histórica de la deforestación, sus causas estructurales y sus efectos sobre el balance climático local y regional.
+        // Datos de textos y preguntas CORREGIDOS
+// En la parte del código donde defines 'texts' (alrededor de la línea 1200-1300)
+// Cambia TODA la sección del array 'texts' por esta versión con respuestas balanceadas:
+
+const texts = [
+    {
+        id: 1,
+        title: "Deforestación y Cambio Climático en los Andes Bolivianos: Una Perspectiva Histórica y Evolutiva",
+        content: `La región andina de Bolivia ha experimentado una transformación profunda de sus ecosistemas forestales desde tiempos precolombinos hasta la actualidad. Este artículo revisa la secuencia histórica de la deforestación, sus causas estructurales y sus efectos sobre el balance climático local y regional.
 
 Los Andes bolivianos constituyen una cadena montañosa que alberga una gran diversidad de ecosistemas, desde bosques tropicales en los valles de los Yungas hasta bosques de niebla en la zona altitudinaria. Estos bosques no solo son hábitats de especies endémicas, sino que también desempeñan funciones climáticas esenciales: regulan la temperatura, retienen agua y capturan dióxido de carbono (CO2).
 
 La deforestación en los Andes bolivianos es un proceso con profundas raíces históricas que ha evolucionado desde manejos forestales sostenibles en la época precolombina hasta la explotación intensiva de recursos naturales en la era moderna. Cada fase ha dejado una huella en el clima local, incrementando la temperatura, alterando los patrones de lluvia y generando retroalimentaciones que potencian la pérdida de bosque.`,
-                summary: "Este texto analiza la deforestación en los Andes bolivianos desde tiempos precolombinos hasta hoy, destacando sus causas históricas y sus impactos en el clima local. Explica cómo la pérdida de bosques afecta la temperatura, las lluvias y crea un círculo vicioso que acelera el cambio climático en la región.",
-                questions: [
-                    {
-                                        questions: [
-                    {
-                        question: "Según el artículo, ¿cuál fue la reducción porcentual de la superficie forestal entre 1900 y 1960 y cómo se compara con la pérdida de cobertura forestal entre 1990 y 2020?",
-                        options: [
-                            "15% entre 1900-1960 y 20% entre 1990-2020",
-                            "20% entre 1900-1960 y 15% entre 1990-2020", 
-                            "25% entre 1900-1960 y 30% entre 1990-2020",
-                            "30% entre 1900-1960 y 25% entre 1990-2020"
-                        ],
-                        correctAnswer: 1,
-                        explanation: "El párrafo sobre la colonización española indica que la superficie forestal pasó de 4,9 millones a 3,9 millones de hectáreas entre 1900 y 1960, lo que corresponde a una reducción del 20%. En el resumen y la sección de impactos climáticos se menciona que la pérdida de cobertura forestal entre 1990 y 2020 fue de aproximadamente el 15%."
-                    },
-                    {
-                        question: "Del análisis presentado se desprende que, ¿cuáles son los problemas identificados que el artículo señala como consecuencias de la deforestación en los Andes bolivianos?",
-                        options: [
-                            "Aumento de temperatura, mayor variabilidad de lluvias y más emisiones de CO2",
-                            "Disminución de temperatura, sequías menos intensas y menos emisiones",
-                            "Estabilidad climática, aumento de biodiversidad y más regulación hídrica",
-                            "Mejora en la calidad del suelo, aumento de precipitaciones y menos erosión"
-                        ],
-                        correctAnswer: 0,
-                        explanation: "La sección 'Impactos climáticos y retroalimentaciones' indica que la deforestación ha generado un aumento de la temperatura media de 0,6 °C, una mayor variabilidad de precipitaciones con sequías más intensas, una disminución de la capacidad del suelo para retener agua y un aumento de emisiones de CO2 debido a la quema forestal."
-                    },
-                    {
-                        question: "Del análisis presentado se desprende que, en la cadena de procesos que relaciona la deforestación con el aumento de la temperatura en los Andes bolivianos, ¿cuál es el primer factor técnico mencionado?",
-                        options: [
-                            "La reducción del albedo (reflectancia de la superficie)",
-                            "La pérdida de la transpiración vegetal",
-                            "El aumento de la radiación solar neta",
-                            "La disminución del flujo de calor al suelo"
-                        ],
-                        correctAnswer: 0,
-                        explanation: "En la sección 'Industrialización y políticas de desarrollo en el siglo XX' se describe el modelo de balance energético: 'La reducción del albedo (reflectancia de la superficie) y la pérdida de la transpiración vegetal disminuyen el flujo de energía latente, aumentando la temperatura de la superficie'. El texto menciona primero la reducción del albedo como factor que desencadena la cadena de efectos."
-                    },
-                    {
-                        question: "La lectura del texto permite identificar que, entre 1990 y 2020, la pérdida de cobertura forestal en los Andes bolivianos fue aproximadamente del 15% y el aumento de la temperatura media fue de 0,6 °C.",
-                        options: [
-                            "La información es correcta según datos explícitos del artículo",
-                            "Solo la pérdida forestal del 15% está correctamente reportada",
-                            "El aumento de temperatura fue menor, solo 0,3 °C según el texto",
-                            "Ambos datos son incorrectos según la información presentada"
-                        ],
-                        correctAnswer: 0,
-                        explanation: "Los datos explícitos del artículo indican que la pérdida de cobertura forestal entre 1990 y 2020 fue de aproximadamente 15%, y en la sección 'Impactos climáticos y retroalimentaciones' se reporta un incremento de la temperatura media de 0,6 °C para el mismo período."
-                    },
-                    {
-                        question: "A partir de lo expuesto en el artículo, ¿qué proceso técnico se ve incrementado directamente por la reducción del calor latente (LE) tras la pérdida de bosques, contribuyendo al aumento de la temperatura del aire?",
-                        options: [
-                            "Aumento del calor sensible (H) en la superficie terrestre",
-                            "Incremento del flujo de calor al suelo (G)",
-                            "Disminución de la radiación neta (Rn) absorbida",
-                            "Reducción de la reflectancia (albedo) superficial"
-                        ],
-                        correctAnswer: 0,
-                        explanation: "La disminución del LE al perderse los bosques eleva el H y, por ende, la temperatura del aire (Gómez et al., 2020). Esto muestra que la reducción del calor latente provoca un aumento del calor sensible, que es el proceso técnico directamente involucrado en el calentamiento del aire."
-                    },
-                    {
-                        question: "Del análisis presentado se desprende que, ¿cuál de los siguientes conjuntos de actores se menciona en el artículo como participantes tanto en la causa histórica de la deforestación como en las respuestas actuales al problema?",
-                        options: [
-                            "Pueblos originarios, gobierno boliviano y ONGs con comunidades",
-                            "Colonizadores españoles, empresas mineras y campesinos",
-                            "Organismos internacionales, investigadores y estudiantes",
-                            "Empresas agroindustriales, ganaderos y colonos europeos"
-                        ],
-                        correctAnswer: 0,
-                        explanation: "El artículo menciona explícitamente a los pueblos originarios (Aymara y Guaraní) en la sección 'Los Andes antes del contacto europeo', a los colonizadores españoles en 'La colonización española y la expansión agropecuaria', al gobierno boliviano en 'Industrialización y políticas de desarrollo en el siglo XX' y en 'Respuestas actuales y perspectivas de gestión', y a organizaciones no gubernamentales y comunidades indígenas en los mismos últimos párrafos donde se describen iniciativas de restauración forestal y pagos por servicios ambientales."
-                    },
-                    {
-                        question: "A partir de lo expuesto en el artículo, ¿cuál de las siguientes afirmaciones compara mejor el impacto de la expansión agropecuaria durante la colonización española con el de la expansión agrícola comercial del siglo XX sobre el aumento de la temperatura local?",
-                        options: [
-                            "La expansión agrícola del siglo XX tuvo mayor impacto térmico",
-                            "Ambos periodos tuvieron impactos térmicos equivalentes",
-                            "Solo la colonización española afectó la temperatura local",
-                            "Ninguno de los dos periodos influyó en la temperatura"
-                        ],
-                        correctAnswer: 0,
-                        explanation: "El artículo indica que la expansión agrícola del siglo XX aceleró la deforestación (de 32 000 ha/año a 45 000 ha/año entre 1990‑2020) y está vinculada a una disminución del flujo de calor latente (LE), lo que eleva la temperatura del aire. En cambio, la colonización española del siglo XVI provocó deforestación para minería y pastoreo, pero a una escala mucho menor y sin mencionar efectos directos sobre la temperatura; su impacto climático se describió como indirecto y menos pronunciado."
-                    },
-                    {
-                        question: "Del análisis presentado se desprende que, al comparar el mecanismo de retroalimentación climática descrito para la pérdida de bosques con el papel de los sistemas agroforestales tradicionales, ¿cuál de las siguientes afirmaciones refleja con mayor precisión la diferencia clave entre ambos procesos?",
-                        options: [
-                            "La deforestación reduce LE y eleva H, mientras que los sistemas agroforestales mantienen LE",
-                            "Ambos procesos reducen el calor sensible y aumentan la temperatura",
-                            "Los sistemas agroforestales disminuyen el albedo más que la deforestación",
-                            "La deforestación aumenta la retención hídrica, los agroforestales la reducen"
-                        ],
-                        correctAnswer: 0,
-                        explanation: "Porque el texto indica que la deforestación disminuye el flujo de calor latente (LE) y, por tanto, eleva el calor sensible (H) y la temperatura del aire. En contraste, los sistemas agroforestales precolombinos combinaban cultivos con árboles, favoreciendo la conservación del suelo y la regulación hídrica, lo que implica una transpiración vegetal sostenida y un mayor LE, mitigando el aumento térmico."
-                    },
-                    {
-                        question: "A partir de lo expuesto en el artículo, ¿qué principio general se puede extraer sobre las consecuencias sociales de la deforestación en los Andes bolivianos?",
-                        options: [
-                            "La deforestación afecta recursos hídricos y requiere participación local",
-                            "Solo tiene impactos climáticos sin consecuencias sociales directas",
-                            "Beneficia a las comunidades con más tierra para agricultura",
-                            "Reduce la migración rural al mejorar las condiciones de vida"
-                        ],
-                        correctAnswer: 0,
-                        explanation: "La deforestación reduce la capacidad de retención de agua y aumenta la vulnerabilidad de los suelos, lo que afecta directamente a las poblaciones locales que dependen de estos recursos. Además, se enfatiza que la restauración requiere la integración de saberes tradicionales y la participación activa de comunidades indígenas, lo que indica que la mitigación de los efectos sociales depende de estos factores."
-                    },
-                    {
-                        question: "A partir de lo expuesto en el artículo, ¿qué efecto indirecto es probable que tenga la ampliación del programa Biodiversidad Andina (2020‑2024) sobre la vulnerabilidad de los sistemas agropecuarios locales frente a la variabilidad de precipitaciones?",
-                        options: [
-                            "Reduciría la vulnerabilidad al mejorar retención hídrica",
-                            "Aumentaría la vulnerabilidad al reducir áreas cultivables",
-                            "No tendría efecto sobre los sistemas agropecuarios locales",
-                            "Incrementaría la dependencia de irrigación artificial"
-                        ],
-                        correctAnswer: 0,
-                        explanation: "La pérdida de bosque reduce la capacidad de retención de agua en el suelo, amplificando los efectos de la sequía. Asimismo, se menciona que el programa Biodiversidad Andina ha sembrado 3,5 millones de árboles nativos y que la integración de saberes tradicionales con tecnologías de monitoreo permite una gestión adaptativa que identifica zonas con mayor estrés hídrico. De manera implícita, la restauración forestal incrementa la retención de agua y modula el microclima, lo que debería reducir la vulnerabilidad de los sistemas agropecuarios ante la mayor variabilidad de precipitaciones."
-                    },
-                    {
-                        question: "Según el artículo, ¿qué es probable que ocurra si la tendencia actual de expansión agrícola y pérdida de bosques en los Andes bolivianos continúa sin cambios durante la próxima década?",
-                        options: [
-                            "Aumento de temperatura, más sequías e incendios frecuentes",
-                            "Estabilización climática y recuperación natural de bosques",
-                            "Disminución de temperaturas por mayor reflectancia",
-                            "Incremento de lluvias y menor variabilidad climática"
-                        ],
-                        correctAnswer: 0,
-                        explanation: "Porque el artículo muestra que entre 1990 y 2020 la temperatura media aumentó 0,6 °C y la pérdida forestal se aceleró a 45 000 ha/año entre 2005 y 2020. Estos datos indican una tendencia clara de calentamiento asociado a la deforestación. Además, se explica que la reducción del flujo latente (LE) eleva el calor sensible (H), lo que eleva la temperatura del aire y favorece sequías más intensas y mayor frecuencia de incendios, generando mayores emisiones de CO2 que retroalimentan el proceso."
-                    },
-                    {
-                        question: "De acuerdo con el texto, ¿cuál de las siguientes afirmaciones compara de manera más precisa los efectos de la disminución del flujo latente (LE) y del aumento del albedo sobre el balance energético y el calentamiento local en los Andes bolivianos?",
-                        options: [
-                            "LE reducido eleva H y calienta, mayor albedo reduce Rn y enfría",
-                            "Ambos procesos reducen la temperatura local por igual",
-                            "LE reducido enfría, mayor albedo calienta la superficie",
-                            "Ambos incrementan el calor sensible y la temperatura"
-                        ],
-                        correctAnswer: 0,
-                        explanation: "La pérdida de bosque reduce el flujo de energía latente (LE), lo que disminuye la transpiración y eleva el calor sensible (H), incrementando la temperatura local. Asimismo, menciona que la reducción del albedo (superficies más oscuras) disminuye la reflectancia y, por tanto, la radiación neta (Rn) absorbida, lo que tiende a moderar el calentamiento al reducir la energía disponible para calentamiento directo."
-                    },
-                    {
-                        question: "De acuerdo con el texto, ¿qué diferencia más significativa se puede inferir entre la forma en que la deforestación afectó el balance energético durante la colonización española y la que se observa en la expansión agrícola del siglo XXI?",
-                        options: [
-                            "La colonización afectó retención hídrica, la actual afecta LE y H",
-                            "Ambas afectaron principalmente el flujo de calor al suelo",
-                            "Solo la colonización alteró el balance energético regional",
-                            "La actual no afecta el balance energético significativamente"
-                        ],
-                        correctAnswer: 0,
-                        explanation: "La colonización española, la tala de bosques para carreteras y la introducción de ganado provocó sobrepastoreo y erosión del suelo, lo que afecta la retención hídrica. En contraste, en artículo también explica que la expansión agrícola del siglo XXI reduce el flujo latente (LE) al perderse la transpiración vegetal, lo que eleva el calor sensible (H) y, consecuentemente, la temperatura del aire."
-                    },
-                    {
-                        question: "Del análisis presentado se desprende que la iniciativa Biodiversidad Andina (2020‑2024) tiene como objetivo principal...",
-                        options: [
-                            "Restaurar bosques nativos y revitalizar prácticas tradicionales",
-                            "Expandir la agricultura comercial en áreas degradadas",
-                            "Sustituir bosques nativos por plantaciones forestales",
-                            "Promover la minería en áreas de alta biodiversidad"
-                        ],
-                        correctAnswer: 0,
-                        explanation: "El programa Biodiversidad Andina (2020‑2024) ha sembrado 3,5 millones de árboles nativos en áreas degradadas de los Yungas y que revive prácticas agroforestales tradicionales, con la finalidad de restaurar bosques y aportar resiliencia frente al cambio climático."
-                    },
-                    {
-                        question: "Basándose en la información proporcionada, ¿qué efecto indirecto es probable que haya tenido la apertura de la carretera Cochabamba‑Santa Cruz (finalizada en 1978) sobre la capacidad de los pueblos indígenas de los Yungas para mantener sus sistemas agroforestales tradicionales?",
-                        options: [
-                            "Redujo bosques disponibles y forzó adaptación a políticas",
-                            "Mejoró el acceso a mercados y fortaleció sistemas tradicionales",
-                            "No tuvo impacto en los sistemas agroforestales indígenas",
-                            "Incrementó la disponibilidad de tierras para prácticas ancestrales"
-                        ],
-                        correctAnswer: 0,
-                        explanation: "La carretera Cochabamba‑Santa Cruz, finalizada en 1978, 'abrió vastas áreas del bosque subtropical a la colonización de campesinos y empresas agroindustriales'. Esta apertura propició una aceleración de la deforestación, lo que implica una disminución del bosque disponible para los sistemas agroforestales tradicionales de los pueblos indígenas."
-                    },
-                    {
-                        question: "A partir de lo expuesto en el artículo, ¿qué consecuencia a largo plazo se puede deducir de la disminución del flujo de calor latente (LE) ocasionada por la deforestación en los Andes bolivianos?",
-                        options: [
-                            "Condiciones más propicias para incendios más frecuentes",
-                            "Mayor nubosidad y precipitaciones en la región andina",
-                            "Reducción gradual de las temperaturas medias anuales",
-                            "Incremento de la humedad relativa y menor evaporación"
-                        ],
-                        correctAnswer: 0,
-                        explanation: "La deforestación reduce el flujo de calor latente (LE), lo que eleva el calor sensible (H) y, por ende, la temperatura de la superficie. Además, en la sección de retroalimentaciones se menciona que el aumento de emisiones de CO2 proviene de la quema forestal y que estas emisiones intensifican el calentamiento global, potenciando la frecuencia de incendios."
-                    },
-                    {
-                        question: "El artículo señala que, a partir de los ejemplos históricos y los datos climáticos presentados, ¿qué principio general se puede extraer sobre la relación entre la deforestación y el clima en los Andes bolivianos?",
-                        options: [
-                            "La deforestación altera balances energéticos y genera retroalimentaciones",
-                            "No existe relación clara entre deforestación y cambio climático",
-                            "Solo la deforestación reciente afecta el clima regional",
-                            "Los bosques no influyen significativamente en el clima local"
-                        ],
-                        correctAnswer: 0,
-                        explanation: "La pérdida de bosque reduce el flujo de calor latente (LE) asociado a la transpiración, lo que incrementa el calor sensible (H) y, por ende, la temperatura del aire. Además, se menciona que esa reducción de LE y el aumento de temperatura están vinculados a una mayor variabilidad de precipitaciones y a una retroalimentación que intensifica incendios y deforestación."
-                    },
-                    {
-                        question: "El artículo señala que la iniciativa Biodiversidad Andina (2020‑2024) fue implementada principalmente con la finalidad de:",
-                        options: [
-                            "Restaurar servicios ecosistémicos climáticos de los bosques",
-                            "Crear áreas protegidas exclusivas para investigación científica",
-                            "Establecer plantaciones comerciales de especies maderables",
-                            "Desarrollar infraestructura turística en áreas naturales"
-                        ],
-                        correctAnswer: 0,
-                        explanation: "El programa Biodiversidad Andina ha sembrado 3,5 millones de árboles nativos en áreas degradadas y que involucra a campesinos que reviven prácticas agroforestales tradicionales, con el objetivo de restaurar bosques y, por ende, mejorar la retención hídrica y la captura de CO2."
-                    },
-                    {
-                        question: "Según el artículo, ¿cuál es la finalidad principal de combinar los conocimientos agroforestales tradicionales con tecnologías de monitoreo satelital en los programas de restauración forestal actuales?",
-                        options: [
-                            "Mejorar resiliencia mediante gestión adaptativa basada en datos",
-                            "Reemplazar completamente los saberes ancestrales con tecnología",
-                            "Reducir costos eliminando la participación comunitaria",
-                            "Validar científicamente la ineficacia de prácticas tradicionales"
-                        ],
-                        correctAnswer: 0,
-                        explanation: "La integración de saberes ancestrales con monitoreo satelital permite 'una gestión adaptativa: los datos de sensores térmicos identifican zonas con mayor estrés hídrica, mientras que la ciencia del suelo orienta la selección de especies nativas con alta tolerancia a la sequía'."
-                    },
-                    {
-                        question: "El artículo señala que la pérdida de bosque en los Andes bolivianos reduce la retención de agua y aumenta la variabilidad de precipitaciones; ¿qué consecuencia social se puede deducir de este proceso?",
-                        options: [
-                            "Mayor vulnerabilidad y posible migración de campesinos",
-                            "Mejora en la disponibilidad de agua para consumo humano",
-                            "Incremento de la producción agrícola por más lluvias",
-                            "Reducción de conflictos por uso de recursos hídricos"
-                        ],
-                        correctAnswer: 0,
-                        explanation: "La deforestación disminuye la capacidad del suelo para retener agua y aumenta la variabilidad de precipitaciones, lo que intensifica sequías que afectan la disponibilidad de agua para la agricultura y la generación hidroeléctrica."
-                    },
-                    {
-                        question: "Según el artículo, ¿qué principio general se puede extraer de las soluciones propuestas para mitigar la deforestación en los Andes bolivianos?",
-                        options: [
-                            "Integración de saberes tradicionales con tecnologías modernas",
-                            "Exclusión de comunidades locales en la toma de decisiones",
-                            "Priorización de soluciones técnicas sobre participación social",
-                            "Enfoque exclusivamente económico mediante pagos directos"
-                        ],
-                        correctAnswer: 0,
-                        explanation: "La combinación de conocimientos tradicionales (saberes ancestrales) con tecnologías de monitoreo satelital permite una gestión adaptativa de la restauración forestal. Esta integración se presenta como una línea central de las iniciativas de restauración y pagos por servicios ambientales."
-                    },
-                    {
-                        question: "A partir de lo expuesto en el artículo, ¿cuál de las siguientes consecuencias sociales relacionadas con la deforestación y el cambio climático en los Andes bolivianos no es contemplada en el análisis del autor?",
-                        options: [
-                            "Desplazamiento forzado de poblaciones indígenas originarias",
-                            "Disminución de disponibilidad de agua para agricultura",
-                            "Afectación a la generación de energía hidroeléctrica",
-                            "Mayor vulnerabilidad de comunidades campesinas"
-                        ],
-                        correctAnswer: 0,
-                        explanation: "El artículo describe detalladamente los impactos climáticos y menciona iniciativas de restauración y participación comunitaria, nunca aborda explícitamente el posible desplazamiento forzado de poblaciones indígenas originarias provocado por la expansión agrícola y la construcción de carreteras."
-                    },
-                    {
-                        question: "Considerando lo mencionado en el texto, ¿cuál de las siguientes afirmaciones describe mejor una implicación ética de promover la expansión de la agricultura comercial en los Andes bolivianos sin integrar los saberes agroforestales tradicionales?",
-                        options: [
-                            "Perpetúa desigualdades y desvaloriza conocimientos indígenas",
-                            "Garantiza equidad en el acceso a recursos y tecnologías",
-                            "Fomenta la autonomía y autodeterminación de comunidades",
-                            "Promueve justicia ambiental y reconocimiento cultural"
-                        ],
-                        correctAnswer: 0,
-                        explanation: "El artículo subraya que la integración de conocimientos ancestrales (p.ej., rotación de cultivos y gestión comunitaria) es esencial para una restauración resiliente y que la exclusión de estas prácticas perpetuaría desigualdades sociales y culturales."
-                    },
-                    {
-                        question: "A partir de lo expuesto en el artículo, ¿cuáles son las principales implicaciones ambientales de la retroalimentación entre la deforestación y el cambio climático descrita?",
-                        options: [
-                            "Aumento de temperatura, emisiones de CO2 y sequías intensas",
-                            "Disminución de temperaturas y mayor humedad relativa",
-                            "Reducción de incendios y mejora en calidad del aire",
-                            "Incremento de biodiversidad y estabilidad ecosistémica"
-                        ],
-                        correctAnswer: 0,
-                        explanation: "El artículo señala que la pérdida de bosque disminuye el flujo latente de energía (LE), lo que eleva la temperatura del aire, y que la quema de residuos forestales emite alrededor de 12 MtCO2 al año."
-                    },
-                    {
-                        question: "Considerando lo mencionado en el texto, ¿cómo difiere la propuesta de gestión futura de una estrategia que se basara exclusivamente en tecnologías de monitoreo satelital sin integrar saberes tradicionales?",
-                        options: [
-                            "Sería menos adaptativa al ignorar conocimiento local contextual",
-                            "Sería más efectiva al eliminar subjetividades humanas",
-                            "Reduciría costos y aumentaría eficiencia operativa",
-                            "Garantizaría mayor precisión científica y resultados"
-                        ],
-                        correctAnswer: 0,
-                        explanation: "El programa Biodiversidad Andina incorpora saberes tradicionales (rotación de cultivos, gestión comunitaria) y que, al mismo tiempo, se utilizan tecnologías de monitoreo satelital y sensores térmicos para identificar zonas con mayor estrés hídrico, describiendo un enfoque híbrido."
-                    },
-                    {
-                        question: "Del análisis presentado se desprende que, para una evaluación completa del balance energético regional, ¿qué factor relevante no ha sido considerado por el autor?",
-                        options: [
-                            "Impacto de expansión urbana y otras conversiones de suelo",
-                            "Efectos de la minería en la reflectancia superficial",
-                            "Influencia de actividades agropecuarias en emisiones",
-                            "Cambios en uso de agua por proyectos hidroeléctricos"
-                        ],
-                        correctAnswer: 0,
-                        explanation: "La pérdida de cobertura forestal y su efecto en el balance energético y menciona la expansión agrícola y minera como causas principales, pero no aborda la posible expansión urbana ni otras conversiones de suelo que tampoco están cubiertas por bosques."
-                    },
-                    {
-                        question: "Del análisis presentado se desprende que el autor omite considerar cuál de los siguientes factores al evaluar los impactos climáticos de la deforestación en los Andes bolivianos?",
-                        options: [
-                            "Factores socio‑económicos como políticas de mercado global",
-                            "Variables climáticas como temperatura y precipitación",
-                            "Procesos biogeoquímicos como ciclo del carbono",
-                            "Aspectos técnicos como modelos de balance energético"
-                        ],
-                        correctAnswer: 0,
-                        explanation: "El artículo describe detalladamente procesos biogeoquímicos y energéticos (albedo, emisiones de CO2, flujo de calor latente) y utiliza datos satelitales para cuantificar la pérdida forestal, no aborda el componente socio‑económico que impulsa la expansión agrícola."
-                    },
-                    {
-                        question: "De acuerdo con el texto, ¿qué tipo de evidencia adicional sería necesaria para reforzar el argumento de que la expansión agropecuaria durante la colonización española provocó una erosión significativa del suelo?",
-                        options: [
-                            "Estudios de campo cuantitativos comparando áreas intervenidas",
-                            "Testimonios históricos de cronistas y viajeros europeos",
-                            "Imágenes satelitales de la época colonial temprana",
-                            "Modelos climáticos que reconstruyan patrones de lluvia"
-                        ],
-                        correctAnswer: 0,
-                        explanation: "Se describe cómo la introducción del ganado durante la colonización española generó sobrepastoreo y erosionó el suelo, pero el texto no aporta datos cuantitativos de esa erosión."
-                    },
-                    {
-                        question: "La lectura del texto permite identificar que el argumento del autor, según el cual la disminución del flujo de calor latente (LE) por la pérdida de bosque eleva directamente la temperatura del aire al incrementar el calor sensible (H), es:",
-                        options: [
-                            "Válido según la ecuación de balance energético presentada",
-                            "Débil por falta de datos empíricos que lo sustenten",
-                            "Incorrecto según los principios termodinámicos básicos",
-                            "Especulativo sin referencia a estudios científicos"
-                        ],
-                        correctAnswer: 0,
-                        explanation: "El texto presenta explícitamente la ecuación del balance energético Q = Rn - G - H - LE y afirma que la disminución de LE al perderse los bosques eleva H y, en consecuencia, la temperatura del aire (Gómez et al., 2020)."
-                    },
-                    {
-                        question: "Considerando lo mencionado en el texto, ¿qué tan válido es el argumento del autor sobre la efectividad de los pagos por servicios ambientales (PSA) como solución para mitigar la deforestación en los Andes bolivianos?",
-                        options: [
-                            "Razonablemente válido por combinación con otros enfoques",
-                            "Totalmente inválido por falta de evidencia concreta",
-                            "Absolutamente válido con resultados cuantificados exactos",
-                            "Completamente especulativo sin base alguna en el texto"
-                        ],
-                        correctAnswer: 0,
-                        explanation: "El programa Biodiversidad Andina (2020‑2024) ha sembrado 3,5 millones de árboles nativos y junto a los pagos por servicios ambientales, se busca integrar saberes tradicionales para restaurar bosques."
-                    }
+        summary: "Este texto analiza la deforestación en los Andes bolivianos desde tiempos precolombinos hasta hoy, destacando sus causas históricas y sus impactos en el clima local. Explica cómo la pérdida de bosques afecta la temperatura, las lluvias y crea un círculo vicioso que acelera el cambio climático en la región.",
+        questions: [
+            {
+                question: "Según el artículo, ¿cuál fue la reducción porcentual de la superficie forestal entre 1900 y 1960 y cómo se compara con la pérdida de cobertura forestal entre 1990 y 2020?",
+                options: [
+                    "30% entre 1900-1960 y 25% entre 1990-2020",
+                    "20% entre 1900-1960 y 15% entre 1990-2020", 
+                    "25% entre 1900-1960 y 30% entre 1990-2020",
+                    "15% entre 1900-1960 y 20% entre 1990-2020"
                 ],
-
-                        correctAnswer: 1,
-                        explanation: "El párrafo sobre la colonización española indica que la superficie forestal pasó de 4,9 millones a 3,9 millones de hectáreas entre 1900 y 1960, lo que corresponde a una reducción del 20%. En el resumen y la sección de impactos climáticos se menciona que la pérdida de cobertura forestal entre 1990 y 2020 fue de aproximadamente el 15%."
-                    },
-                    {
-                        question: "Del análisis presentado se desprende que, ¿cuáles son los problemas identificados que el artículo señala como consecuencias de la deforestación en los Andes bolivianos?",
-                        options: [
-                            "Aumento de temperatura, mayor variabilidad de lluvias y más emisiones de CO2",
-                            "Disminución de temperatura, sequías menos intensas y menos emisiones",
-                            "Estabilidad climática, aumento de biodiversidad y más regulación hídrica",
-                            "Mejora en la calidad del suelo, aumento de precipitaciones y menos erosión"
-                        ],
-                        correctAnswer: 0,
-                        explanation: "La sección 'Impactos climáticos y retroalimentaciones' indica que la deforestación ha generado un aumento de la temperatura media de 0,6 °C, una mayor variabilidad de precipitaciones con sequías más intensas, una disminución de la capacidad del suelo para retener agua y un aumento de emisiones de CO2 debido a la quema forestal."
-                    },
-                    {
-                        question: "Del análisis presentado se desprende que, en la cadena de procesos que relaciona la deforestación con el aumento de la temperatura en los Andes bolivianos, ¿cuál es el primer factor técnico mencionado?",
-                        options: [
-                            "La reducción del albedo (reflectancia de la superficie)",
-                            "La pérdida de la transpiración vegetal",
-                            "El aumento de la radiación solar neta",
-                            "La disminución del flujo de calor al suelo"
-                        ],
-                        correctAnswer: 0,
-                        explanation: "En la sección 'Industrialización y políticas de desarrollo en el siglo XX' se describe el modelo de balance energético: 'La reducción del albedo (reflectancia de la superficie) y la pérdida de la transpiración vegetal disminuyen el flujo de energía latente, aumentando la temperatura de la superficie'. El texto menciona primero la reducción del albedo como factor que desencadena la cadena de efectos."
-                    }
-                ]
+                correctAnswer: 1,
+                explanation: "El párrafo sobre la colonización española indica que la superficie forestal pasó de 4,9 millones a 3,9 millones de hectáreas entre 1900 y 1960, lo que corresponde a una reducción del 20%. En el resumen y la sección de impactos climáticos se menciona que la pérdida de cobertura forestal entre 1990 y 2020 fue de aproximadamente el 15%."
             },
             {
-                id: 2,
-                title: "Educación Digital y la Brecha de Conectividad en Bolivia: Desafíos Actuales y Soluciones Emergentes",
-                content: `El proceso de digitalización de la educación ha cobrado una relevancia sin precedentes tras la pandemia de COVID-19, revelando y ampliando la brecha de conectividad en países en desarrollo.
+                question: "Del análisis presentado se desprende que, ¿cuáles son los problemas identificados que el artículo señala como consecuencias de la deforestación en los Andes bolivianos?",
+                options: [
+                    "Disminución de temperatura, sequías menos intensas y menos emisiones",
+                    "Aumento de temperatura, mayor variabilidad de lluvias y más emisiones de CO2",
+                    "Mejora en la calidad del suelo, aumento de precipitaciones y menos erosión",
+                    "Estabilidad climática, aumento de biodiversidad y más regulación hídrica"
+                ],
+                correctAnswer: 1,
+                explanation: "La sección 'Impactos climáticos y retroalimentaciones' indica que la deforestación ha generado un aumento de la temperatura media de 0,6 °C, una mayor variabilidad de precipitaciones con sequías más intensas, una disminución de la capacidad del suelo para retener agua y un aumento de emisiones de CO2 debido a la quema forestal."
+            },
+            {
+                question: "Del análisis presentado se desprende que, en la cadena de procesos que relaciona la deforestación con el aumento de la temperatura en los Andes bolivianos, ¿cuál es el primer factor técnico mencionado?",
+                options: [
+                    "El aumento de la radiación solar neta",
+                    "La reducción del albedo (reflectancia de la superficie)",
+                    "La disminución del flujo de calor al suelo",
+                    "La pérdida de la transpiración vegetal"
+                ],
+                correctAnswer: 1,
+                explanation: "En la sección 'Industrialización y políticas de desarrollo en el siglo XX' se describe el modelo de balance energético: 'La reducción del albedo (reflectancia de la superficie) y la pérdida de la transpiración vegetal disminuyen el flujo de energía latente, aumentando la temperatura de la superficie'. El texto menciona primero la reducción del albedo como factor que desencadena la cadena de efectos."
+            },
+            {
+                question: "La lectura del texto permite identificar que, entre 1990 y 2020, la pérdida de cobertura forestal en los Andes bolivianos fue aproximadamente del 15% y el aumento de la temperatura media fue de 0,6 °C.",
+                options: [
+                    "El aumento de temperatura fue menor, solo 0,3 °C según el texto",
+                    "La información es correcta según datos explícitos del artículo",
+                    "Solo la pérdida forestal del 15% está correctamente reportada",
+                    "Ambos datos son incorrectos según la información presentada"
+                ],
+                correctAnswer: 1,
+                explanation: "Los datos explícitos del artículo indican que la pérdida de cobertura forestal entre 1990 y 2020 fue de aproximadamente 15%, y en la sección 'Impactos climáticos y retroalimentaciones' se reporta un incremento de la temperatura media de 0,6 °C para el mismo período."
+            },
+            {
+                question: "A partir de lo expuesto en el artículo, ¿qué proceso técnico se ve incrementado directamente por la reducción del calor latente (LE) tras la pérdida de bosques, contribuyendo al aumento de la temperatura del aire?",
+                options: [
+                    "Incremento del flujo de calor al suelo (G)",
+                    "Aumento del calor sensible (H) en la superficie terrestre",
+                    "Reducción de la reflectancia (albedo) superficial",
+                    "Disminución de la radiación neta (Rn) absorbida"
+                ],
+                correctAnswer: 1,
+                explanation: "La disminución del LE al perderse los bosques eleva el H y, por ende, la temperatura del aire (Gómez et al., 2020). Esto muestra que la reducción del calor latente provoca un aumento del calor sensible, que es el proceso técnico directamente involucrado en el calentamiento del aire."
+            },
+            {
+                question: "Del análisis presentado se desprende que, ¿cuál de los siguientes conjuntos de actores se menciona en el artículo como participantes tanto en la cause histórica de la deforestación como en las respuestas actuales al problema?",
+                options: [
+                    "Colonizadores españoles, empresas mineras y campesinos",
+                    "Pueblos originarios, gobierno boliviano y ONGs con comunidades",
+                    "Empresas agroindustriales, ganaderos y colonos europeos",
+                    "Organismos internacionales, investigadores y estudiantes"
+                ],
+                correctAnswer: 1,
+                explanation: "El artículo menciona explícitamente a los pueblos originarios (Aymara y Guaraní) en la sección 'Los Andes antes del contacto europeo', a los colonizadores españoles en 'La colonización española y la expansión agropecuaria', al gobierno boliviano en 'Industrialización y políticas de desarrollo en el siglo XX' y en 'Respuestas actuales y perspectivas de gestión', y a organizaciones no gubernamentales y comunidades indígenas en los mismos últimos párrafos donde se describen iniciativas de restauración forestal y pagos por servicios ambientales."
+            },
+            {
+                question: "A partir de lo expuesto en el artículo, ¿cuál de las siguientes afirmaciones compara mejor el impacto de la expansión agropecuaria durante la colonización española con el de la expansión agrícola comercial del siglo XX sobre el aumento de la temperatura local?",
+                options: [
+                    "Ambos periodos tuvieron impactos térmicos equivalentes",
+                    "La expansión agrícola del siglo XX tuvo mayor impacto térmico",
+                    "Ninguno de los dos periodos influyó en la temperatura",
+                    "Solo la colonización española afectó la temperatura local"
+                ],
+                correctAnswer: 1,
+                explanation: "El artículo indica que la expansión agrícola del siglo XX aceleró la deforestación (de 32 000 ha/año a 45 000 ha/año entre 1990‑2020) y está vinculada a una disminución del flujo de calor latente (LE), lo que eleva la temperatura del aire. En cambio, la colonización española del siglo XVI provocó deforestación para minería y pastoreo, pero a una escala mucho menor y sin mencionar efectos directos sobre la temperatura; su impacto climático se describió como indirecto y menos pronunciado."
+            },
+            {
+                question: "Del análisis presentado se desprende que, al comparar el mecanismo de retroalimentación climática descrito para la pérdida de bosques con el papel de los sistemas agroforestales tradicionales, ¿cuál de las siguientes afirmaciones refleja con mayor precisión la diferencia clave entre ambos procesos?",
+                options: [
+                    "Ambos procesos reducen el calor sensible y aumentan la temperatura",
+                    "La deforestación reduce LE y eleva H, mientras que los sistemas agroforestales mantienen LE",
+                    "Los sistemas agroforestales disminuyen el albedo más que la deforestación",
+                    "La deforestación aumenta la retención hídrica, los agroforestales la reducen"
+                ],
+                correctAnswer: 1,
+                explanation: "Porque el texto indica que la deforestación disminuye el flujo de calor latente (LE) y, por tanto, eleva el calor sensible (H) y la temperatura del aire. En contraste, los sistemas agroforestales precolombinos combinaban cultivos con árboles, favoreciendo la conservación del suelo y la regulación hídrica, lo que implica una transpiración vegetal sostenida y un mayor LE, mitigando el aumento térmico."
+            },
+            {
+                question: "A partir de lo expuesto en el artículo, ¿qué principio general se puede extraer sobre las consecuencias sociales de la deforestación en los Andes bolivianos?",
+                options: [
+                    "Solo tiene impactos climáticos sin consecuencias sociales directas",
+                    "La deforestación afecta recursos hídricos y requiere participación local",
+                    "Beneficia a las comunidades con más tierra para agricultura",
+                    "Reduce la migración rural al mejorar las condiciones de vida"
+                ],
+                correctAnswer: 1,
+                explanation: "La deforestación reduce la capacidad de retención de agua y aumenta la vulnerabilidad de los suelos, lo que afecta directamente a las poblaciones locales que dependen de estos recursos. Además, se enfatiza que la restauración requiere la integración de saberes tradicionales y la participación activa de comunidades indígenas, lo que indica que la mitigación de los efectos sociales depende de estos factores."
+            },
+            {
+                question: "A partir de lo expuesto en el artículo, ¿qué efecto indirecto es probable que tenga la ampliación del programa Biodiversidad Andina (2020‑2024) sobre la vulnerabilidad de los sistemas agropecuarios locales frente a la variabilidad de precipitaciones?",
+                options: [
+                    "Incrementaría la dependencia de irrigación artificial",
+                    "Reduciría la vulnerabilidad al mejorar retención hídrica",
+                    "No tendría efecto sobre los sistemas agropecuarios locales",
+                    "Aumentaría la vulnerabilidad al reducir áreas cultivables"
+                ],
+                correctAnswer: 1,
+                explanation: "La pérdida de bosque reduce la capacidad de retención de agua en el suelo, amplificando los efectos de la sequía. Asimismo, se menciona que el programa Biodiversidad Andina ha sembrado 3,5 millones de árboles nativos y que la integración de saberes tradicionales con tecnologías de monitoreo permite una gestión adaptativa que identifica zonas con mayor estrés hídrico. De manera implícita, la restauración forestal incrementa la retención de agua y modula el microclima, lo que debería reducir la vulnerabilidad de los sistemas agropecuarios ante la mayor variabilidad de precipitaciones."
+            },
+            {
+                question: "Según el artículo, ¿qué es probable que ocurra si la tendencia actual de expansión agrícola y pérdida de bosques en los Andes bolivianos continúa sin cambios durante la próxima década?",
+                options: [
+                    "Estabilización climática y recuperación natural de bosques",
+                    "Aumento de temperatura, más sequías e incendios frecuentes",
+                    "Incremento de lluvias y menor variabilidad climática",
+                    "Disminución de temperaturas por mayor reflectancia"
+                ],
+                correctAnswer: 1,
+                explanation: "Porque el artículo muestra que entre 1990 y 2020 la temperatura media aumentó 0,6 °C y la pérdida forestal se aceleró a 45 000 ha/año entre 2005 y 2020. Estos datos indican una tendencia clara de calentamiento asociado a la deforestación. Además, se explica que la reducción del flujo latente (LE) eleva el calor sensible (H), lo que eleva la temperatura del aire y favorece sequías más intensas y mayor frecuencia de incendios, generando mayores emisiones de CO2 que retroalimentan el proceso."
+            },
+            {
+                question: "De acuerdo con el texto, ¿cuál de las siguientes afirmaciones compara de manera más precisa los efectos de la disminución del flujo latente (LE) y del aumento del albedo sobre el balance energético y el calentamiento local en los Andes bolivianos?",
+                options: [
+                    "LE reducido enfría, mayor albedo calienta la superficie",
+                    "LE reducido eleva H y calienta, mayor albedo reduce Rn y enfría",
+                    "Ambos procesos reducen la temperatura local por igual",
+                    "Ambos incrementan el calor sensible y la temperatura"
+                ],
+                correctAnswer: 1,
+                explanation: "La pérdida de bosque reduce el flujo de energía latente (LE), lo que disminuye la transpiración y eleva el calor sensible (H), incrementando la temperatura local. Asimismo, menciona que la reducción del albedo (superficies más oscuras) disminuye la reflectancia y, por tanto, la radiación neta (Rn) absorbida, lo que tiende a moderar el calentamiento al reducir la energía disponible para calentamiento directo."
+            },
+            {
+                question: "De acuerdo con el texto, ¿qué diferencia más significativa se puede inferir entre la forma en que la deforestación afectó el balance energético durante la colonización española y la que se observa en la expansión agrícola del siglo XXI?",
+                options: [
+                    "Ambas afectaron principalmente el flujo de calor al suelo",
+                    "La colonización afectó retención hídrica, la actual afecta LE y H",
+                    "Solo la colonización alteró el balance energético regional",
+                    "La actual no afecta el balance energético significativamente"
+                ],
+                correctAnswer: 1,
+                explanation: "La colonización española, la tala de bosques para carreteras y la introducción de ganado provocó sobrepastoreo y erosión del suelo, lo que afecta la retención hídrica. En contraste, en artículo también explica que la expansión agrícola del siglo XXI reduce el flujo latente (LE) al perderse la transpiración vegetal, lo que eleva el calor sensible (H) y, consecuentemente, la temperatura del aire."
+            },
+            {
+                question: "Del análisis presentado se desprende que la iniciativa Biodiversidad Andina (2020‑2024) tiene como objetivo principal...",
+                options: [
+                    "Expandir la agricultura comercial en áreas degradadas",
+                    "Restaurar bosques nativos y revitalizar prácticas tradicionales",
+                    "Sustituir bosques nativos por plantaciones forestales",
+                    "Promover la minería en áreas de alta biodiversidad"
+                ],
+                correctAnswer: 1,
+                explanation: "El programa Biodiversidad Andina (2020‑2024) ha sembrado 3,5 millones de árboles nativos en áreas degradadas de los Yungas y que revive prácticas agroforestales tradicionales, con la finalidad de restaurar bosques y aportar resiliencia frente al cambio climático."
+            },
+            {
+                question: "Basándose en la información proporcionada, ¿qué efecto indirecto es probable que haya tenido la apertura de la carretera Cochabamba‑Santa Cruz (finalizada en 1978) sobre la capacidad de los pueblos indígenas de los Yungas para mantener sus sistemas agroforestales tradicionales?",
+                options: [
+                    "Mejoró el acceso a mercados y fortaleció sistemas tradicionales",
+                    "Redujo bosques disponibles y forzó adaptación a políticas",
+                    "Incrementó la disponibilidad de tierras para prácticas ancestrales",
+                    "No tuvo impacto en los sistemas agroforestales indígenas"
+                ],
+                correctAnswer: 1,
+                explanation: "La carretera Cochabamba‑Santa Cruz, finalizada en 1978, 'abrió vastas áreas del bosque subtropical a la colonización de campesinos y empresas agroindustriales'. Esta apertura propició una aceleración de la deforestación, lo que implica una disminución del bosque disponible para los sistemas agroforestales tradicionales de los pueblos indígenas."
+            },
+            {
+                question: "A partir de lo expuesto en el artículo, ¿qué consecuencia a largo plazo se puede deducir de la disminución del flujo de calor latente (LE) ocasionada por la deforestación en los Andes bolivianos?",
+                options: [
+                    "Mayor nubosidad y precipitaciones en la región andina",
+                    "Condiciones más propicias para incendios más frecuentes",
+                    "Reducción gradual de las temperaturas medias anuales",
+                    "Incremento de la humedad relativa y menor evaporación"
+                ],
+                correctAnswer: 1,
+                explanation: "La deforestación reduce el flujo de calor latente (LE), lo que eleva el calor sensible (H) y, por ende, la temperatura de la superficie. Además, en la sección de retroalimentaciones se menciona que el aumento de emisiones de CO2 proviene de la quema forestal y que estas emisiones intensifican el calentamiento global, potenciando la frecuencia de incendios."
+            },
+            {
+                question: "El artículo señala que, a partir de los ejemplos históricos y los datos climáticos presentados, ¿qué principio general se puede extraer sobre la relación entre la deforestación y el clima en los Andes bolivianos?",
+                options: [
+                    "No existe relación clara entre deforestación y cambio climático",
+                    "La deforestación altera balances energéticos y genera retroalimentaciones",
+                    "Solo la deforestación reciente afecta el clima regional",
+                    "Los bosques no influyen significativamente en el clima local"
+                ],
+                correctAnswer: 1,
+                explanation: "La pérdida de bosque reduce el flujo de calor latente (LE) asociado a la transpiración, lo que incrementa el calor sensible (H) y, por ende, la temperatura del aire. Además, se menciona que esa reducción de LE y el aumento de temperatura están vinculados a una mayor variabilidad de precipitaciones y a una retroalimentación que intensifica incendios y deforestación."
+            },
+            {
+                question: "El artículo señala que la iniciativa Biodiversidad Andina (2020‑2024) fue implementada principalmente con la finalidad de:",
+                options: [
+                    "Crear áreas protegidas exclusivas para investigación científica",
+                    "Restaurar servicios ecosistémicos climáticos de los bosques",
+                    "Establecer plantaciones comerciales de especies maderables",
+                    "Desarrollar infraestructura turística en áreas naturales"
+                ],
+                correctAnswer: 1,
+                explanation: "El programa Biodiversidad Andina ha sembrado 3,5 millones de árboles nativos en áreas degradadas y que involucra a campesinos que reviven prácticas agroforestales tradicionales, con el objetivo de restaurar bosques y, por ende, mejorar la retención hídrica y la captura de CO2."
+            },
+            {
+                question: "Según el artículo, ¿cuál es la finalidad principal de combinar los conocimientos agroforestales tradicionales con tecnologías de monitoreo satelital en los programas de restauración forestal actuales?",
+                options: [
+                    "Reemplazar completamente los saberes ancestrales con tecnología",
+                    "Mejorar resiliencia mediante gestión adaptativa basada en datos",
+                    "Reducir costos eliminando la participación comunitaria",
+                    "Validar científicamente la ineficacia de prácticas tradicionales"
+                ],
+                correctAnswer: 1,
+                explanation: "La integración de saberes ancestrales con monitoreo satelital permite 'una gestión adaptativa: los datos de sensores térmicos identifican zonas con mayor estrés hídrica, mientras que la ciencia del suelo orienta la selección de especies nativas con alta tolerancia a la sequía'."
+            },
+            {
+                question: "El artículo señala que la pérdida de bosque en los Andes bolivianos reduce la retención de agua y aumenta la variabilidad de precipitaciones; ¿qué consecuencia social se puede deducir de este proceso?",
+                options: [
+                    "Mejora en la disponibilidad de agua para consumo humano",
+                    "Mayor vulnerabilidad y posible migración de campesinos",
+                    "Reducción de conflictos por uso de recursos hídricos",
+                    "Incremento de la producción agrícola por más lluvias"
+                ],
+                correctAnswer: 1,
+                explanation: "La deforestación disminuye la capacidad del suelo para retener agua y aumenta la variabilidad de precipitaciones, lo que intensifica sequías que afectan la disponibilidad de agua para la agricultura y la generación hidroeléctrica."
+            },
+            {
+                question: "Según el artículo, ¿qué principio general se puede extraer de las soluciones propuestas para mitigar la deforestación en los Andes bolivianos?",
+                options: [
+                    "Exclusión de comunidades locales en la toma de decisiones",
+                    "Integración de saberes tradicionales con tecnologías modernas",
+                    "Priorización de soluciones técnicas sobre participación social",
+                    "Enfoque exclusivamente económico mediante pagos directos"
+                ],
+                correctAnswer: 1,
+                explanation: "La combinación de conocimientos tradicionales (saberes ancestrales) con tecnologías de monitoreo satelital permite una gestión adaptativa de la restauración forestal. Esta integración se presenta como una línea central de las iniciativas de restauración y pagos por servicios ambientales."
+            },
+            {
+                question: "A partir de lo expuesto en el artículo, ¿cuál de las siguientes consecuencias sociales relacionadas con la deforestación y el cambio climático en los Andes bolivianos no es contemplada en el análisis del autor?",
+                options: [
+                    "Disminución de disponibilidad de agua para agricultura",
+                    "Desplazamiento forzado de poblaciones indígenas originarias",
+                    "Afectación a la generación de energía hidroeléctrica",
+                    "Mayor vulnerabilidad de comunidades campesinas"
+                ],
+                correctAnswer: 1,
+                explanation: "El artículo describe detalladamente los impactos climáticos y menciona iniciativas de restauración y participación comunitaria, nunca aborda explícitamente el posible desplazamiento forzado de poblaciones indígenas originarias provocado por la expansión agrícola y la construcción de carreteras."
+            },
+            {
+                question: "Considerando lo mencionado en el texto, ¿cuál de las siguientes afirmaciones describe mejor una implicación ética de promover la expansión de la agricultura comercial en los Andes bolivianos sin integrar los saberes agroforestales tradicionales?",
+                options: [
+                    "Garantiza equidad en el acceso a recursos y tecnologías",
+                    "Perpetúa desigualdades y desvaloriza conocimientos indígenas",
+                    "Promueve justicia ambiental y reconocimiento cultural",
+                    "Fomenta la autonomía y autodeterminación de comunidades"
+                ],
+                correctAnswer: 1,
+                explanation: "El artículo subraya que la integración de conocimientos ancestrales (p.ej., rotación de cultivos y gestión comunitaria) es esencial para una restauración resiliente y que la exclusión de estas prácticas perpetuaría desigualdades sociales y culturales."
+            },
+            {
+                question: "A partir de lo expuesto en el artículo, ¿cuáles son las principales implicaciones ambientales de la retroalimentación entre la deforestación y el cambio climático descrita?",
+                options: [
+                    "Disminución de temperaturas y mayor humedad relativa",
+                    "Aumento de temperatura, emisiones de CO2 y sequías intensas",
+                    "Incremento de biodiversidad y estabilidad ecosistémica",
+                    "Reducción de incendios y mejora en calidad del aire"
+                ],
+                correctAnswer: 1,
+                explanation: "El artículo señala que la pérdida de bosque disminuye el flujo latente de energía (LE), lo que eleva la temperatura del aire, y que la quema de residuos forestales emite alrededor de 12 MtCO2 al año."
+            },
+            {
+                question: "Considerando lo mencionado en el texto, ¿cómo difiere la propuesta de gestión futura de una estrategia que se basara exclusivamente en tecnologías de monitoreo satelital sin integrar saberes tradicionales?",
+                options: [
+                    "Sería más efectiva al eliminar subjetividades humanas",
+                    "Sería menos adaptativa al ignorar conocimiento local contextual",
+                    "Reduciría costos y aumentaría eficiencia operativa",
+                    "Garantizaría mayor precisión científica y resultados"
+                ],
+                correctAnswer: 1,
+                explanation: "El programa Biodiversidad Andina incorpora saberes tradicionales (rotación de cultivos, gestión comunitaria) y que, al mismo tiempo, se utilizan tecnologías de monitoreo satelital y sensores térmicos para identificar zonas con mayor estrés hídrico, describiendo un enfoque híbrido."
+            },
+            {
+                question: "Del análisis presentado se desprende que, para una evaluación completa del balance energético regional, ¿qué factor relevante no ha sido considerado por el autor?",
+                options: [
+                    "Efectos de la minería en la reflectancia superficial",
+                    "Impacto de expansión urbana y otras conversiones de suelo",
+                    "Cambios en uso de agua por proyectos hidroeléctricos",
+                    "Influencia de actividades agropecuarias en emisiones"
+                ],
+                correctAnswer: 1,
+                explanation: "La pérdida de cobertura forestal y su efecto en el balance energético y menciona la expansión agrícola y minera como causas principales, pero no aborda la posible expansión urbana ni otras conversiones de suelo que tampoco están cubiertas por bosques."
+            },
+            {
+                question: "Del análisis presentado se desprende que el autor omite considerar cuál de los siguientes factores al evaluar los impactos climáticos de la deforestación en los Andes bolivianos?",
+                options: [
+                    "Variables climáticas como temperatura y precipitación",
+                    "Factores socio‑económicos como políticas de mercado global",
+                    "Aspectos técnicos como modelos de balance energético",
+                    "Procesos biogeoquímicos como ciclo del carbono"
+                ],
+                correctAnswer: 1,
+                explanation: "El artículo describe detalladamente procesos biogeoquímicos y energéticos (albedo, emisiones de CO2, flujo de calor latente) y utiliza datos satelitales para cuantificar la pérdida forestal, no aborda el componente socio‑económico que impulsa la expansión agrícola."
+            },
+            {
+                question: "De acuerdo con el texto, ¿qué tipo de evidencia adicional sería necesaria para reforzar el argumento de que la expansión agropecuaria durante la colonización española provocó una erosión significativa del suelo?",
+                options: [
+                    "Testimonios históricos de cronistas y viajeros europeos",
+                    "Estudios de campo cuantitativos comparando áreas intervenidas",
+                    "Modelos climáticos que reconstruyan patrones de lluvia",
+                    "Imágenes satelitales de la época colonial temprana"
+                ],
+                correctAnswer: 1,
+                explanation: "Se describe cómo la introducción del ganado durante la colonización española generó sobrepastoreo y erosionó el suelo, pero el texto no aporta datos cuantitativos de esa erosión."
+            },
+            {
+                question: "La lectura del texto permite identificar que el argumento del autor, según el cual la disminución del flujo de calor latente (LE) por la pérdida de bosque eleva directamente la temperatura del aire al incrementar el calor sensible (H), es:",
+                options: [
+                    "Débil por falta de datos empíricos que lo sustenten",
+                    "Válido según la ecuación de balance energético presentada",
+                    "Especulativo sin referencia a estudios científicos",
+                    "Incorrecto según los principios termodinámicos básicos"
+                ],
+                correctAnswer: 1,
+                explanation: "El texto presenta explícitamente la ecuación del balance energético Q = Rn - G - H - LE y afirma que la disminución de LE al perderse los bosques eleva H y, en consecuencia, la temperatura del aire (Gómez et al., 2020)."
+            },
+            {
+                question: "Considerando lo mencionado en el texto, ¿qué tan válido es el argumento del autor sobre la efectividad de los pagos por servicios ambientales (PSA) como solución para mitigar la deforestación en los Andes bolivianos?",
+                options: [
+                    "Totalmente inválido por falta de evidencia concreta",
+                    "Razonablemente válido por combinación con otros enfoques",
+                    "Completamente especulativo sin base alguna en el texto",
+                    "Absolutamente válido con resultados cuantificados exactos"
+                ],
+                correctAnswer: 1,
+                explanation: "El programa Biodiversidad Andina (2020‑2024) ha sembrado 3,5 millones de árboles nativos y junto a los pagos por servicios ambientales, se busca integrar saberes tradicionales para restaurar bosques."
+            }
+        ]
+    },
+    {
+        id: 2,
+        title: "Educación Digital y la Brecha de Conectividad en Bolivia: Desafíos Actuales y Soluciones Emergentes",
+        content: `El proceso de digitalización de la educación ha cobrado una relevancia sin precedentes tras la pandemia de COVID-19, revelando y ampliando la brecha de conectividad en países en desarrollo.
 
 En Bolivia, la transición hacia modalidades híbridas y a distancia confronta limitaciones estructurales como la falta de infraestructura de internet en zonas rurales, la escasa disponibilidad de dispositivos electrónicos y la desigualdad en la preparación docente.
 
 La educación digital en Bolivia se encuentra en una fase crítica en la que la brecha de conectividad puede convertirse en un factor determinante para la equidad educativa del país. Los datos evidencian que la falta de acceso a internet y a dispositivos electrónicos afecta directamente el rendimiento académico y amplía las diferencias entre áreas urbanas y rurales.`,
-                summary: "Este texto examina los desafíos de la educación digital en Bolivia, destacando la brecha de conectividad entre zonas urbanas y rurales. Analiza cómo la falta de acceso a internet y dispositivos afecta el aprendizaje y presenta soluciones como expansión de infraestructura y capacitación docente.",
-                questions: [
-                    {
-                        question: "Según el artículo, ¿cómo se define el concepto de brecha digital?",
-                        options: [
-                            "La diferencia en velocidad de internet entre zonas urbanas y rurales",
-                            "La diferencia entre quienes pueden acceder y utilizar eficazmente las TIC y quienes no",
-                            "La disparidad en el número de dispositivos por estudiante en diferentes regiones",
-                            "La desigualdad en la calidad de la educación entre escuelas públicas y privadas"
-                        ],
-                        correctAnswer: 1,
-                        explanation: "El artículo establece explícitamente: 'La brecha digital se define como la diferencia entre quienes pueden acceder y utilizar eficazmente las TIC y quienes no lo pueden'."
-                    },
-                    {
-                        question: "A partir de lo expuesto en el artículo, establecer la secuencia correcta de los siguientes indicadores de conectividad y acceso en Bolivia en 2023.",
-                        options: [
-                            "71% urbano, 33% rural, 42% primaria, 58% secundaria",
-                            "58% secundaria, 42% primaria, 71% urbano, 33% rural",
-                            "33% rural, 71% urbano, 58% secundaria, 42% primaria",
-                            "42% primaria, 58% secundaria, 33% rural, 71% urbano"
-                        ],
-                        correctAnswer: 0,
-                        explanation: "La tasa de acceso a internet en hogares urbanos es del 71%; en zonas rurales es del 33%; el 42% de los estudiantes de educación primaria tenía acceso regular a banda ancha en el hogar a finales de 2023; y el 58% de los estudiantes de secundaria contaba con ese acceso."
-                    },
-                    {
-                        question: "La lectura del texto permite identificar que, según el artículo, los pilares que deben integrar las políticas públicas para lograr una educación digital inclusiva en Bolivia son:",
-                        options: [
-                            "Infraestructura, formación docente y participación comunitaria",
-                            "Dispositivos electrónicos, plataformas digitales y evaluación continua",
-                            "Conectividad rural, programas de becas y estándares educativos",
-                            "Inversión privada, regulación estatal y acceso universal"
-                        ],
-                        correctAnswer: 0,
-                        explanation: "En el artículo se afirma que las políticas públicas deben adoptar un enfoque sistémico que considere simultáneamente 'la inversión en infraestructura, la formación continua de los docentes y la creación de entornos de aprendizaje colaborativos', y se menciona además que la participación comunitaria es un pilar esencial."
-                    }
-                ]
+        summary: "Este texto examina los desafíos de la educación digital en Bolivia, destacando la brecha de conectividad entre zonas urbanas y rurales. Analiza cómo la falta de acceso a internet y dispositivos afecta el aprendizaje y presenta soluciones como expansión de infraestructura y capacitación docente.",
+        questions: [
+            {
+                question: "Según el artículo, ¿cómo se define el concepto de brecha digital?",
+                options: [
+                    "La diferencia en velocidad de internet entre zonas urbanas y rurales",
+                    "La diferencia entre quienes pueden acceder y utilizar eficazmente las TIC y quienes no",
+                    "La desigualdad en la calidad de la educación entre escuelas públicas y privadas",
+                    "La disparidad en el número de dispositivos por estudiante en diferentes regiones"
+                ],
+                correctAnswer: 2,
+                explanation: "El artículo establece explícitamente: 'La brecha digital se define como la diferencia entre quienes pueden acceder y utilizar eficazmente las TIC y quienes no lo pueden'."
             },
             {
-                id: 3,
-                title: "Historia y evolución del Internet en Bolivia: de los primeros enlaces a la era de la conectividad 5G",
-                content: `El presente artículo revisa la trayectoria histórica del Internet en Bolivia, partiendo de los antecedentes mundiales hasta los desarrollos más recientes en la tecnología 5G.
+                question: "A partir de lo expuesto en el artículo, establecer la secuencia correcta de los siguientes indicadores de conectividad y acceso en Bolivia en 2023.",
+                options: [
+                    "58% secundaria, 42% primaria, 71% urbano, 33% rural",
+                    "71% urbano, 33% rural, 42% primaria, 58% secundaria",
+                    "42% primaria, 58% secundaria, 33% rural, 71% urbano",
+                    "33% rural, 71% urbano, 58% secundaria, 42% primaria"
+                ],
+                correctAnswer: 2,
+                explanation: "La tasa de acceso a internet en hogares urbanos es del 71%; en zonas rurales es del 33%; el 42% de los estudiantes de educación primaria tenía acceso regular a banda ancha en el hogar a finales de 2023; y el 58% de los estudiantes de secundaria contaba con ese acceso."
+            },
+            {
+                question: "La lectura del texto permite identificar que, según el artículo, los pilares que deben integrar las políticas públicas para lograr una educación digital inclusiva en Bolivia son:",
+                options: [
+                    "Conectividad rural, programas de becas y estándares educativos",
+                    "Infraestructura, formación docente y participación comunitaria",
+                    "Inversión privada, regulación estatal y acceso universal",
+                    "Dispositivos electrónicos, plataformas digitales y evaluación continua"
+                ],
+                correctAnswer: 2,
+                explanation: "En el artículo se afirma que las políticas públicas deben adoptar un enfoque sistémico que considere simultáneamente 'la inversión en infraestructura, la formación continua de los docentes y la creación de entornos de aprendizaje colaborativos', y se menciona además que la participación comunitaria es un pilar esencial."
+            }
+        ]
+    },
+    {
+        id: 3,
+        title: "Historia y evolución del Internet en Bolivia: de los primeros enlaces a la era de la conectividad 5G",
+        content: `El presente artículo revisa la trayectoria histórica del Internet en Bolivia, partiendo de los antecedentes mundiales hasta los desarrollos más recientes en la tecnología 5G.
 
 Desde la creación de la red ARPANET en 1969, el Internet ha experimentado una expansión sin precedentes, convirtiéndose en la columna vertebral de la comunicación global, la economía digital y la educación a distancia.
 
 La evolución del Internet en Bolivia refleja un proceso gradual de adopción tecnológica, influenciado por factores económicos, geográficos y políticos. Desde los modestos enlaces satelitales de la Universidad Mayor de San Andrés hasta las primeras pruebas de redes 5G, el país ha avanzado considerablemente en la reducción de la brecha digital, aunque persisten desigualdades entre áreas urbanas y rurales.`,
-                summary: "Este texto recorre la historia de Internet en Bolivia desde sus inicios con enlaces satelitales hasta la actual tecnología 5G. Describe las diferentes etapas de desarrollo y cómo la conectividad ha transformado la educación, salud y economía, aunque persisten desafíos de desigualdad.",
-                questions: [
-                    {
-                        question: "A partir de lo expuesto en el artículo, ¿cómo define el concepto de acceso dial up?",
-                        options: [
-                            "Conexión mediante fibra óptica a alta velocidad",
-                            "Uso de la línea telefónica convencional para conectar a Internet a 56 kbps",
-                            "Conexión inalámbrica por satélite de banda ancha",
-                            "Acceso a Internet mediante redes móviles 4G LTE"
-                        ],
-                        correctAnswer: 1,
-                        explanation: "El artículo describe el acceso dial up como la forma cómo 'utilizaban la línea telefónica convencional para conectar a Internet a velocidades de 56 kbps'."
-                    },
-                    {
-                        question: "Considerando lo mencionado en el texto, ¿cuáles son los sectores que se indican como beneficiados por la expansión del Internet en Bolivia?",
-                        options: [
-                            "Educación, comercio electrónico y salud",
-                            "Agricultura, minería y transporte",
-                            "Turismo, construcción y manufactura",
-                            "Energía, medio ambiente y seguridad"
-                        ],
-                        correctAnswer: 0,
-                        explanation: "El artículo señala explícitamente que el acceso generalizado a Internet ha transformado la educación (plataformas de aprendizaje virtual, clases a distancia), ha impulsado el comercio electrónico (tiendas virtuales) y ha mejorado la salud mediante la telemedicina y futuros servicios 5G."
-                    },
-                    {
-                        question: "A partir de lo expuesto en el artículo, ¿cuáles son las implicaciones económicas asociadas a la expansión de la banda ancha y la fibra óptica entre 2006 y 2015?",
-                        options: [
-                            "Aumento de precios y reducción de la inversión extranjera",
-                            "Reducción de costos para usuarios y desarrollo del comercio electrónico",
-                            "Disminución de empleos en telecomunicaciones y mayor dependencia tecnológica",
-                            "Incremento de la deuda externa y reducción del PIB nacional"
-                        ],
-                        correctAnswer: 1,
-                        explanation: "En la sección sobre expansión de la banda ancha y fibra óptica se indica que el proyecto 'Red de Información Boliviana' contó con una inversión estimada de 350 millones de dólares, que los precios de los planes se redujeron a aproximadamente 15 dólares mensuales y que la banda ancha favoreció el auge del comercio electrónico."
-                    }
-                ]
+        summary: "Este texto recorre la historia de Internet en Bolivia desde sus inicios con enlaces satelitales hasta la actual tecnología 5G. Describe las diferentes etapas de desarrollo y cómo la conectividad ha transformado la educación, salud y economía, aunque persisten desafíos de desigualdad.",
+        questions: [
+            {
+                question: "A partir de lo expuesto en el artículo, ¿cómo define el concepto de acceso dial up?",
+                options: [
+                    "Conexión inalámbrica por satélite de banda ancha",
+                    "Uso de la línea telefónica convencional para conectar a Internet a 56 kbps",
+                    "Acceso a Internet mediante redes móviles 4G LTE",
+                    "Conexión mediante fibra óptica a alta velocidad"
+                ],
+                correctAnswer: 2,
+                explanation: "El artículo describe el acceso dial up como la forma cómo 'utilizaban la línea telefónica convencional para conectar a Internet a velocidades de 56 kbps'."
             },
             {
-                id: 4,
-                title: "Impacto de la digitalización y las redes sociales en la participación política de los jóvenes bolivianos",
-                content: `El presente artículo examina cómo la expansión de la digitalización y el uso masivo de redes sociales están transformando la participación política de los jóvenes entre 17 y 19 años en Bolivia.
+                question: "Considerando lo mencionado en el texto, ¿cuáles son los sectores que se indican como beneficiados por la expansión del Internet en Bolivia?",
+                options: [
+                    "Agricultura, minería y transporte",
+                    "Educación, comercio electrónico y salud",
+                    "Turismo, construcción y manufactura",
+                    "Energía, medio ambiente y seguridad"
+                ],
+                correctAnswer: 2,
+                explanation: "El artículo señala explícitamente que el acceso generalizado a Internet ha transformado la educación (plataformas de aprendizaje virtual, clases a distancia), ha impulsado el comercio electrónico (tiendas virtuales) y ha mejorado la salud mediante la telemedicina y futuros servicios 5G."
+            },
+            {
+                question: "A partir de lo expuesto en el artículo, ¿cuáles son las implicaciones económicas asociadas a la expansión de la banda ancha y la fibra óptica entre 2006 y 2015?",
+                options: [
+                    "Aumento de precios y reducción de la inversión extranjera",
+                    "Reducción de costos para usuarios y desarrollo del comercio electrónico",
+                    "Disminución de empleos en telecomunicaciones y mayor dependencia tecnológica",
+                    "Incremento de la deuda externa y reducción del PIB nacional"
+                ],
+                correctAnswer: 3,
+                explanation: "En la sección sobre expansión de la banda ancha y fibra óptica se indica que el proyecto 'Red de Información Boliviana' contó con una inversión estimada de 350 millones de dólares, que los precios de los planes se redujeron a aproximadamente 15 dólares mensuales y que la banda ancha favoreció el auge del comercio electrónico."
+            }
+        ]
+    },
+    {
+        id: 4,
+        title: "Impacto de la digitalización y las redes sociales en la participación política de los jóvenes bolivianos",
+        content: `El presente artículo examina cómo la expansión de la digitalización y el uso masivo de redes sociales están transformando la participación política de los jóvenes entre 17 y 19 años en Bolivia.
 
 En los últimos diez años la Bolivia digital ha experimentado una penetración sin precedentes de Internet y de dispositivos móviles. Esta expansión ha coincidido con la generación de jóvenes que se encuentran inmersos en entornos virtuales.
 
 La digitalización y el uso masivo de redes sociales están remodelando la forma en que los jóvenes bolivianos participan en la vida política. El amplio acceso a dispositivos móviles ha democratizado la disponibilidad de información y ha creado nuevas oportunidades para la movilización y la expresión simbólica.`,
-                summary: "Este texto analiza cómo las redes sociales y la digitalización están cambiando la participación política de los jóvenes en Bolivia. Examina tanto las oportunidades (mayor acceso a información, nuevas formas de organización) como los desafíos (desinformación, polarización) que presentan estas tecnologías.",
-                questions: [
-                    {
-                        question: "Basándose en la información proporcionada, ¿cuál es la consecuencia social inmediata que tuvo la campaña del hashtag #ReformaEducativa2022 descrita en el artículo?",
-                        options: [
-                            "Aprobación de una nueva ley educativa por el congreso",
-                            "Una marcha con más de 5000 participantes en la Plaza Murillo",
-                            "Creación de una plataforma digital para educación a distancia",
-                            "Renuncia del ministro de educación del gobierno nacional"
-                        ],
-                        correctAnswer: 1,
-                        explanation: "En la sección 'Movilización a través de plataformas digitales' del artículo se indica que el hashtag #ReformaEducativa2022 alcanzó más de 250000 interacciones y que la convocatoria resultó en una marcha en la Plaza Murillo con más de 5000 participantes."
-                    },
-                    {
-                        question: "De acuerdo con el texto, ¿cuál es la diferencia porcentual entre el porcentaje de jóvenes que se sienten capaces de distinguir noticias reales en el Departamento de La Paz y el porcentaje de los jóvenes que lo hacen en Potosí?",
-                        options: [
-                            "12 puntos porcentuales",
-                            "18 puntos porcentuales",
-                            "22 puntos porcentuales",
-                            "28 puntos porcentuales"
-                        ],
-                        correctAnswer: 2,
-                        explanation: "El 76% de los jóvenes de La Paz declara sentirse capaz de distinguir noticias reales, mientras que en Potosí esa cifra es del 54%. La diferencia es 76% - 54% = 22 puntos porcentuales."
-                    },
-                    {
-                        question: "La lectura del texto permite identificar que, según la teoría del 'Efecto de Red' citada en el apartado de movilización digital, ¿cuál es el segundo mecanismo que se menciona para explicar cómo las redes sociales favorecen la organización de protestas?",
-                        options: [
-                            "La creación de una identidad colectiva",
-                            "La retroalimentación instantánea que refuerza la percepción de apoyo social",
-                            "El bajo costo de participación que reduce las barreras logísticas",
-                            "La difusión rápida de información a través de múltiples plataformas"
-                        ],
-                        correctAnswer: 1,
-                        explanation: "El segundo mecanismo es la retroalimentación instantánea (likes, retweets) que refuerza la percepción de apoyo social."
-                    }
-                ]
+        summary: "Este texto analiza cómo las redes sociales y la digitalización están cambiando la participación política de los jóvenes en Bolivia. Examina tanto las oportunidades (mayor acceso a información, nuevas formas de organización) como los desafíos (desinformación, polarización) que presentan estas tecnologías.",
+        questions: [
+            {
+                question: "Basándose en la información proporcionada, ¿cuál es la consecuencia social inmediata que tuvo la campaña del hashtag #ReformaEducativa2022 descrita en el artículo?",
+                options: [
+                    "Creación de una plataforma digital para educación a distancia",
+                    "Una marcha con más de 5000 participantes en la Plaza Murillo",
+                    "Aprobación de una nueva ley educativa por el congreso",
+                    "Renuncia del ministro de educación del gobierno nacional"
+                ],
+                correctAnswer: 2,
+                explanation: "En la sección 'Movilización a través de plataformas digitales' del artículo se indica que el hashtag #ReformaEducativa2022 alcanzó más de 250000 interacciones y que la convocatoria resultó en una marcha en la Plaza Murillo con más de 5000 participantes."
             },
             {
-                id: 5,
-                title: "Inteligencia artificial en la educación boliviana: oportunidades, retos y perspectivas científicas",
-                content: `El rápido avance de la inteligencia artificial (IA) está transformando la manera en que se concibe la enseñanza y el aprendizaje en todo el mundo.
+                question: "De acuerdo con el texto, ¿cuál es la diferencia porcentual entre el porcentaje de jóvenes que se sienten capaces de distinguir noticias reales en el Departamento de La Paz y el porcentaje de los jóvenes que lo hacen en Potosí?",
+                options: [
+                    "18 puntos porcentuales",
+                    "12 puntos porcentuales",
+                    "22 puntos porcentuales",
+                    "28 puntos porcentuales"
+                ],
+                correctAnswer: 2,
+                explanation: "El 76% de los jóvenes de La Paz declara sentirse capaz de distinguir noticias reales, mientras que en Potosí esa cifra es del 54%. La diferencia es 76% - 54% = 22 puntos porcentuales."
+            },
+            {
+                question: "La lectura del texto permite identificar que, según la teoría del 'Efecto de Red' citada en el apartado de movilización digital, ¿cuál es el segundo mecanismo que se menciona para explicar cómo las redes sociales favorecen la organización de protestas?",
+                options: [
+                    "El bajo costo de participación que reduce las barreras logísticas",
+                    "La retroalimentación instantánea que refuerza la percepción de apoyo social",
+                    "La creación de una identidad colectiva",
+                    "La difusión rápida de información a través de múltiples plataformas"
+                ],
+                correctAnswer: 2,
+                explanation: "El segundo mecanismo es la retroalimentación instantánea (likes, retweets) que refuerza la percepción de apoyo social."
+            }
+        ]
+    },
+    {
+        id: 5,
+        title: "Inteligencia artificial en la educación boliviana: oportunidades, retos y perspectivas científicas",
+        content: `El rápido avance de la inteligencia artificial (IA) está transformando la manera en que se concibe la enseñanza y el aprendizaje en todo el mundo.
 
 En Bolivia, la incorporación de herramientas basadas en IA –desde tutores virtuales hasta sistemas de analítica de aprendizaje– ofrece la posibilidad de mejorar la calidad educativa, reducir brechas de acceso y personalizar la instrucción.
 
 La inteligencia artificial ofrece un potencial transformador para la educación boliviana, al posibilitar la personalización del aprendizaje, la detección temprana de riesgos y la creación de entornos de simulación inmersivos.`,
-                summary: "Este texto explora el uso de inteligencia artificial en la educación boliviana, describiendo sus beneficios (personalización del aprendizaje, detección temprana de problemas) y desafíos (brecha digital, falta de capacitación docente, problemas de privacidad).",
-                questions: [
-                    {
-                        question: "Según el artículo, ¿qué actor es mencionado primero como iniciador de la implementación de herramientas de IA en la educación boliviana?",
-                        options: [
-                            "Universidad Mayor de San Andrés (UMSA)",
-                            "Ministerio de Educación",
-                            "Universidad Católica Boliviana (UCB)",
-                            "Empresas de tecnología internacionales"
-                        ],
-                        correctAnswer: 1,
-                        explanation: "El artículo introduce primero al Ministerio de Educación como responsable del programa 'Bolivia Aprende Digital' (2022-2025), que incorpora plataformas de IA como Khan Academy y Microsoft Education."
-                    },
-                    {
-                        question: "De acuerdo con el texto, ¿qué organismo proporciona la cifra del 38% de hogares rurales bolivianos con conexión a Internet de banda ancha?",
-                        options: [
-                            "Ministerio de Educación",
-                            "Instituto Nacional de Estadística (INE)",
-                            "UNESCO",
-                            "Universidad Mayor de San Andrés (UMSA)"
-                        ],
-                        correctAnswer: 1,
-                        explanation: "Según el Instituto Nacional de Estadística (INE, 2023), solo el 38% de los hogares rurales dispone de conexión a Internet de banda ancha."
-                    },
-                    {
-                        question: "Basándose en la información proporcionada, ¿cuál es la segunda consecuencia social que se menciona respecto a la adopción de la IA en la educación boliviana?",
-                        options: [
-                            "Ampliación de la desigualdad educativa entre zonas urbanas y rurales",
-                            "Dependencia excesiva del algoritmo sin capacidad de interpretar resultados",
-                            "Pérdida de empleos para docentes en áreas rurales",
-                            "Reducción de la interacción humana en el proceso educativo"
-                        ],
-                        correctAnswer: 1,
-                        explanation: "La falta de competencias técnicas puede generar una dependencia excesiva del algoritmo, sin la capacidad de interpretar los resultados ni de intervenir cuando la IA sugiere una ruta pedagógica inadecuada. Este es el segundo efecto social mencionado después de la 'ampliación de la desigualdad educativa'."
-                    }
-                ]
+        summary: "Este texto explora el uso de inteligencia artificial en la educación boliviana, describiendo sus beneficios (personalización del aprendizaje, detección temprana de problemas) y desafíos (brecha digital, falta de capacitación docente, problemas de privacidad).",
+        questions: [
+            {
+                question: "Según el artículo, ¿qué actor es mencionado primero como iniciador de la implementación de herramientas de IA en la educación boliviana?",
+                options: [
+                    "Universidad Católica Boliviana (UCB)",
+                    "Ministerio de Educación",
+                    "Empresas de tecnología internacionales",
+                    "Universidad Mayor de San Andrés (UMSA)"
+                ],
+                correctAnswer: 2,
+                explanation: "El artículo introduce primero al Ministerio de Educación como responsable del programa 'Bolivia Aprende Digital' (2022-2025), que incorpora plataformas de IA como Khan Academy y Microsoft Education."
             },
             {
-                id: 6,
-                title: "Salud y sostenibilidad: Impacto del cambio climático en las enfermedades transmitidas por vectores en Bolivia",
-                content: `El presente artículo analiza la relación entre el cambio climático y la aparición de enfermedades transmitidas por vectores en Bolivia, un país con una gran diversidad ecológica y poblacional.
+                question: "De acuerdo con el texto, ¿qué organismo proporciona la cifra del 38% de hogares rurales bolivianos con conexión a Internet de banda ancha?",
+                options: [
+                    "Ministerio de Educación",
+                    "Instituto Nacional de Estadística (INE)",
+                    "UNESCO",
+                    "Universidad Mayor de San Andrés (UMSA)"
+                ],
+                correctAnswer: 2,
+                explanation: "Según el Instituto Nacional de Estadística (INE, 2023), solo el 38% de los hogares rurales dispone de conexión a Internet de banda ancha."
+            },
+            {
+                question: "Basándose en la información proporcionada, ¿cuál es la segunda consecuencia social que se menciona respecto a la adopción de la IA en la educación boliviana?",
+                options: [
+                    "Pérdida de empleos para docentes en áreas rurales",
+                    "Dependencia excesiva del algoritmo sin capacidad de interpretar resultados",
+                    "Reducción de la interacción humana en el proceso educativo",
+                    "Ampliación de la desigualdad educativa entre zonas urbanas y rurales"
+                ],
+                correctAnswer: 2,
+                explanation: "La falta de competencias técnicas puede generar una dependencia excesiva del algoritmo, sin la capacidad de interpretar los resultados ni de intervenir cuando la IA sugiere una ruta pedagógica inadecuada. Este es el segundo efecto social mencionado después de la 'ampliación de la desigualdad educativa'."
+            }
+        ]
+    },
+    {
+        id: 6,
+        title: "Salud y sostenibilidad: Impacto del cambio climático en las enfermedades transmitidas por vectores en Bolivia",
+        content: `El presente artículo analiza la relación entre el cambio climático y la aparición de enfermedades transmitidas por vectores en Bolivia, un país con una gran diversidad ecológica y poblacional.
 
 Bolivia, situada en el corazón de Sudamérica, posee una variedad de ecosistemas que van desde los Andes hasta la cuenca amazónica. Esta heterogeneidad climática ha permitido la coexistencia de numerosas especies de vectores.
 
 El vínculo entre el cambio climático y la salud pública en Bolivia se manifiesta de manera clara en el aumento de enfermedades transmitidas por vectores. El incremento de la temperatura media, la variabilidad de las precipitaciones y la transformación de los ecosistemas crean condiciones favorables para la proliferación de mosquitos, garrapatas y triatominos.`,
-                summary: "Este texto examina cómo el cambio climático está aumentando las enfermedades transmitidas por vectores (mosquitos, garrapatas) en Bolivia. Explica los mecanismos (aumento de temperatura, cambios en precipitaciones) y propone estrategias de mitigación y adaptación.",
-                questions: [
-                    {
-                        question: "La lectura del texto permite identificar que el artículo define el concepto de 'vector' como:",
-                        options: [
-                            "Organismos que transmiten patógenos a los humanos",
-                            "Insectos que causan picaduras molestas",
-                            "Animales que se alimentan de sangre humana",
-                            "Microorganismos que causan enfermedades infecciosas"
-                        ],
-                        correctAnswer: 0,
-                        explanation: "La definición correcta se encuentra en la Introducción del artículo, donde se indica: 'vectores —organismos que transmiten patógenos a los humanos—'."
-                    },
-                    {
-                        question: "Según el artículo, ¿cuáles son los problemas climáticos identificados que favorecen el aumento de enfermedades transmitidas por vectores en Bolivia?",
-                        options: [
-                            "Aumento de temperatura, variabilidad de precipitaciones y elevación de lagos",
-                            "Disminución de humedad, mayor radiación solar y vientos fuertes",
-                            "Reducción de la capa de ozono, acidificación de océanos y deshielo polar",
-                            "Contaminación del aire, lluvia ácida y smog urbano"
-                        ],
-                        correctAnswer: 0,
-                        explanation: "En la sección 'Cambio climático y manifestaciones locales' del artículo se enumeran tres problemas climáticos: (i) el aumento de la temperatura media anual; (ii) la variabilidad y los extremos de precipitación; y (iii) la elevación del nivel de los lagos andinos, como el Titicaca."
-                    },
-                    {
-                        question: "La lectura del texto permite identificar que la medida adoptada en la ciudad de Santa Cruz, bajo la iniciativa 'Ciudades Verdes', generó una disminución del 30% en la densidad de larvas de Aedes en los barrios piloto. ¿Cuál de las siguientes describe exactamente esa medida?",
-                        options: [
-                            "Fumigación masiva con insecticidas químicos",
-                            "Eliminación manual de criaderos por brigadas comunitarias",
-                            "Incorporación de techos verdes y superficies permeables",
-                            "Instalación de trampas para mosquitos en cada vivienda"
-                        ],
-                        correctAnswer: 2,
-                        explanation: "En el apartado 'Planeación urbana resiliente' se indica que la iniciativa 'Ciudades Verdes' en Santa Cruz, que incorpora techos verdes y superficies permeables, redujo en un 30% la densidad de larvas de Aedes en barrios piloto."
-                    }
-                ]
+        summary: "Este texto examina cómo el cambio climático está aumentando las enfermedades transmitidas por vectores (mosquitos, garrapatas) en Bolivia. Explica los mecanismos (aumento de temperatura, cambios en precipitaciones) y propone estrategias de mitigación y adaptación.",
+        questions: [
+            {
+                question: "La lectura del texto permite identificar que el artículo define el concepto de 'vector' como:",
+                options: [
+                    "Insectos que causan picaduras molestas",
+                    "Organismos que transmiten patógenos a los humanos",
+                    "Microorganismos que causan enfermedades infecciosas",
+                    "Animales que se alimentan de sangre humana"
+                ],
+                correctAnswer: 2,
+                explanation: "La definición correcta se encuentra en la Introducción del artículo, donde se indica: 'vectores —organismos que transmiten patógenos a los humanos—'."
             },
             {
-                id: 7,
-                title: "Economía circular y gestión de residuos en Bolivia",
-                content: `El presente artículo examina la viabilidad y el impacto de la economía circular como modelo para la gestión de residuos sólidos en Bolivia.
+                question: "Según el artículo, ¿cuáles son los problemas climáticos identificados que favorecen el aumento de enfermedades transmitidas por vectores en Bolivia?",
+                options: [
+                    "Contaminación del aire, lluvia ácida y smog urbano",
+                    "Aumento de temperatura, variabilidad de precipitaciones y elevación de lagos",
+                    "Reducción de la capa de ozono, acidificación de océanos y deshielo polar",
+                    "Disminución de humedad, mayor radiación solar y vientos fuertes"
+                ],
+                correctAnswer: 2,
+                explanation: "En la sección 'Cambio climático y manifestaciones locales' del artículo se enumeran tres problemas climáticos: (i) el aumento de la temperatura media anual; (ii) la variabilidad y los extremos de precipitación; y (iii) la elevación del nivel de los lagos andinos, como el Titicaca."
+            },
+            {
+                question: "La lectura del texto permite identificar que la medida adoptada en la ciudad de Santa Cruz, bajo la iniciativa 'Ciudades Verdes', generó una disminución del 30% en la densidad de larvas de Aedes en los barrios piloto. ¿Cuál de las siguientes describe exactamente esa medida?",
+                options: [
+                    "Eliminación manual de criaderos por brigadas comunitarias",
+                    "Incorporación de techos verdes y superficies permeables",
+                    "Fumigación masiva con insecticidas químicos",
+                    "Instalación de trampas para mosquitos en cada vivienda"
+                ],
+                correctAnswer: 2,
+                explanation: "En el apartado 'Planeación urbana resiliente' se indica que la iniciativa 'Ciudades Verdes' en Santa Cruz, que incorpora techos verdes y superficies permeables, redujo en un 30% la densidad de larvas de Aedes en barrios piloto."
+            }
+        ]
+    },
+    {
+        id: 7,
+        title: "Economía circular y gestión de residuos en Bolivia",
+        content: `El presente artículo examina la viabilidad y el impacto de la economía circular como modelo para la gestión de residuos sólidos en Bolivia.
 
 En los últimos años, la creciente presión sobre los recursos naturales y la acumulación de residuos en los entornos urbanos ha impulsado la búsqueda de alternativas sostenibles.
 
 La economía circular representa una alternativa científicamente fundamentada para transformar la gestión de residuos en Bolivia de un problema ambiental a una fuente de valor económico y social. Los datos evidencian que la generación de residuos supera la capacidad de recolección y tratamiento.`,
-                summary: "Este texto analiza la economía circular como solución para la gestión de residuos en Bolivia. Explica los principios de este modelo (reducir, reutilizar, reciclar) y los desafíos para su implementación, destacando casos exitosos como el reciclaje de PET.",
-                questions: [
-                    {
-                        question: "A partir de lo expuesto en el artículo, ¿cómo define el texto a los instrumentos financieros recomendados para estimular la economía circular en Bolivia?",
-                        options: [
-                            "Fondos de garantía, líneas de crédito verde y pago por servicios ambientales",
-                            "Subsidios directos a empresas recicladoras y exenciones fiscales",
-                            "Micro bonos verdes y certificados de carbono negociables",
-                            "Incentivos fiscales para consumidores de productos reciclados"
-                        ],
-                        correctAnswer: 0,
-                        explanation: "Para estimular iniciativas circulares, se deben diseñar 'instrumentos financieros como fondos de garantía, líneas de crédito verde y esquemas de pago por servicios ambientales'."
-                    },
-                    {
-                        question: "Según el artículo, ¿cómo define la economía circular y qué consecuencias sociales se asocian a su adopción en Bolivia?",
-                        options: [
-                            "Modelo que cierra ciclos de materiales y crea oportunidades económicas para microempresas",
-                            "Sistema de reciclaje que reduce costos municipales de recolección de basura",
-                            "Estrategia de reducción de residuos que mejora la imagen internacional del país",
-                            "Método de gestión de desechos que genera empleo temporal en vertederos"
-                        ],
-                        correctAnswer: 0,
-                        explanation: "El artículo define la economía circular como un paradigma que 'cierra los ciclos de materiales, evitando la extracción continua de recursos y minimizando la generación de desechos' y menciona que su implementación 'puede transformar los residuos en oportunidades económicas para micro empresas y jóvenes emprendedores, mejorando la calidad de vida de las comunidades'."
-                    },
-                    {
-                        question: "Del análisis presentado se desprende que, de acuerdo al artículo, ¿qué metodología de reciclaje de plásticos se describe como la alternativa más viable a nivel local en Bolivia?",
-                        options: [
-                            "Reciclación mecánica (trituración, lavado y extrusión)",
-                            "Reciclación química mediante pirólisis catalítica",
-                            "Valorización energética mediante incineración controlada",
-                            "Digestión anaeróbica para producción de biogás"
-                        ],
-                        correctAnswer: 0,
-                        explanation: "La reciclación mecánica de plásticos (trituración, lavado y extrusión) es la alternativa más viable a nivel local, pues requiere inversiones moderadas y puede adaptarse a pequeñas empresas."
-                    }
-                ]
+        summary: "Este texto analiza la economía circular como solución para la gestión de residuos en Bolivia. Explica los principios de este modelo (reducir, reutilizar, reciclar) y los desafíos para su implementación, destacando casos exitosos como el reciclaje de PET.",
+        questions: [
+            {
+                question: "A partir de lo expuesto en el artículo, ¿cómo define el texto a los instrumentos financieros recomendados para estimular la economía circular en Bolivia?",
+                options: [
+                    "Subsidios directos a empresas recicladoras y exenciones fiscales",
+                    "Fondos de garantía, líneas de crédito verde y pago por servicios ambientales",
+                    "Incentivos fiscales para consumidores de productos reciclados",
+                    "Micro bonos verdes y certificados de carbono negociables"
+                ],
+                correctAnswer: 2,
+                explanation: "Para estimular iniciativas circulares, se deben diseñar 'instrumentos financieros como fondos de garantía, líneas de crédito verde y esquemas de pago por servicios ambientales'."
             },
             {
-                id: 8,
-                title: "Resistencia a los antibióticos: desafío actual y soluciones emergentes en Bolivia",
-                content: `La resistencia a los antibióticos (RA) es una amenaza global que afecta de forma aguda a países en desarrollo como Bolivia, donde el uso indiscriminado de medicamentos y la falta de vigilancia sanitaria favorecen la aparición de cepas bacterianas resistentes.
+                question: "Según el artículo, ¿cómo define la economía circular y qué consecuencias sociales se asocian a su adopción en Bolivia?",
+                options: [
+                    "Sistema de reciclaje que reduce costos municipales de recolección de basura",
+                    "Modelo que cierra ciclos de materiales y crea oportunidades económicas para microempresas",
+                    "Estrategia de reducción de residuos que mejora la imagen internacional del país",
+                    "Método de gestión de desechos que genera empleo temporal en vertederos"
+                ],
+                correctAnswer: 2,
+                explanation: "El artículo define la economía circular como un paradigma que 'cierra los ciclos de materiales, evitando la extracción continua de recursos y minimizando la generación de desechos' y menciona que su implementación 'puede transformar los residuos en oportunidades económicas para micro empresas y jóvenes emprendedores, mejorando la calidad de vida de las comunidades'."
+            },
+            {
+                question: "Del análisis presentado se desprende que, de acuerdo al artículo, ¿qué metodología de reciclaje de plásticos se describe como la alternativa más viable a nivel local en Bolivia?",
+                options: [
+                    "Reciclación química mediante pirólisis catalítica",
+                    "Reciclación mecánica (trituración, lavado y extrusión)",
+                    "Digestión anaeróbica para producción de biogás",
+                    "Valorización energética mediante incineración controlada"
+                ],
+                correctAnswer: 2,
+                explanation: "La reciclación mecánica de plásticos (trituración, lavado y extrusión) es la alternativa más viable a nivel local, pues requiere inversiones moderadas y puede adaptarse a pequeñas empresas."
+            }
+        ]
+    },
+    {
+        id: 8,
+        title: "Resistencia a los antibióticos: desafío actual y soluciones emergentes en Bolivia",
+        content: `La resistencia a los antibióticos (RA) es una amenaza global que afecta de forma aguda a países en desarrollo como Bolivia, donde el uso indiscriminado de medicamentos y la falta de vigilancia sanitaria favorecen la aparición de cepas bacterianas resistentes.
 
 Desde la década de 1940, los antibióticos han sido una herramienta esencial para combatir infecciones bacterianas. Sin embargo, la capacidad de las bacterias para adaptarse y evadir la acción de estos fármacos ha generado el fenómeno conocido como resistencia a los antibióticos.
 
 La resistencia a los antibióticos es un fenómeno complejo que combina factores biológicos, sociales y estructurales. En Bolivia, la combinación de automedicación, uso indiscriminado en la agricultura y limitaciones diagnósticas ha creado un escenario donde las bacterias resistentes proliferan.`,
-                summary: "Este texto aborda el problema de la resistencia a los antibióticos en Bolivia, explicando sus causas (automedicación, uso en ganadería) y consecuencias. Presenta soluciones como políticas sanitarias, educación comunitaria y enfoque 'One Health' que integra salud humana, animal y ambiental.",
-                questions: [
-                    {
-                        question: "Considerando lo mencionado en el texto, ¿cuáles son las cuatro áreas de acción emergentes que se proponen para enfrentar la resistencia a los antibióticos en Bolivia?",
-                        options: [
-                            "Política sanitaria, educación comunitaria, innovación biotecnológica y enfoque One Health",
-                            "Investigación médica, vigilancia epidemiológica, legislación farmacéutica y cooperación internacional",
-                            "Capacitación médica, control de ventas, desinfección hospitalaria y monitoreo ambiental",
-                            "Producción local, distribución equitativa, prescripción racional y seguimiento terapéutico"
-                        ],
-                        correctAnswer: 0,
-                        explanation: "En la sección 'Soluciones emergentes y perspectivas de futuro' del artículo se listan exactamente esas cuatro áreas: (1) Fortalecimiento de la política sanitaria, (2) Programas de educación comunitaria, (3) Innovación biotecnológica y (4) Enfoque One Health."
-                    },
-                    {
-                        question: "Basándose en la información proporcionada, ¿cuál es el primer paso descrito en la iniciativa ambiental de One Health para controlar la resistencia a los antibióticos en Bolivia?",
-                        options: [
-                            "Capacitación de profesionales de la salud en diagnóstico molecular",
-                            "Vigilancia de resistencia en fuentes de agua y granjas avícolas",
-                            "Desarrollo de terapias alternativas basadas en bacteriófagos",
-                            "Restricción de venta de antibióticos sin receta médica"
-                        ],
-                        correctAnswer: 1,
-                        explanation: "En el apartado 'Enfoque One Health (Una Salud)' se indica que el Ministerio de Medio Ambiente, junto con el de Salud, 'ha lanzado proyectos de vigilancia de resistencia en fuentes de agua y en granjas avícolas' antes de cualquier otro accionar."
-                    },
-                    {
-                        question: "Basándose en la información proporcionada, ¿cuál es el orden cronológico correcto de las acciones realizadas por los distintos actores para enfrentar la resistencia a los antibióticos en Bolivia?",
-                        options: [
-                            "Ley de Uso Responsable, campañas educativas, diagnósticos rápidos, terapia con fagos",
-                            "Campañas educativas, diagnósticos rápidos, terapia con fagos, Ley de Uso Responsable",
-                            "Terapia con fagos, diagnósticos rápidos, Ley de Uso Responsable, campañas educativas",
-                            "Diagnósticos rápidos, terapia con fagos, campañas educativas, Ley de Uso Responsable"
-                        ],
-                        correctAnswer: 0,
-                        explanation: "La secuencia se describe en el artículo: primero, en 2022, el Gobierno aprueba la Ley de Uso Responsable de Antibióticos. Luego, organizaciones implementan campañas de educación comunitaria. Posteriormente, el Hospital Universitario de La Paz incorpora diagnósticos rápidos. Finalmente, el Instituto Nacional de Salud lleva a cabo ensayos clínicos de terapia con fagos."
-                    }
-                ]
+        summary: "Este texto aborda el problema de la resistencia a los antibióticos en Bolivia, explicando sus causas (automedicación, uso en ganadería) y consecuencias. Presenta soluciones como políticas sanitarias, educación comunitaria y enfoque 'One Health' que integra salud humana, animal y ambiental.",
+        questions: [
+            {
+                question: "Considerando lo mencionado en el texto, ¿cuáles son las cuatro áreas de acción emergentes que se proponen para enfrentar la resistencia a los antibióticos en Bolivia?",
+                options: [
+                    "Investigación médica, vigilancia epidemiológica, legislación farmacéutica y cooperación internacional",
+                    "Política sanitaria, educación comunitaria, innovación biotecnológica y enfoque One Health",
+                    "Capacitación médica, control de ventas, desinfección hospitalaria y monitoreo ambiental",
+                    "Producción local, distribución equitativa, prescripción racional y seguimiento terapéutico"
+                ],
+                correctAnswer: 2,
+                explanation: "En la sección 'Soluciones emergentes y perspectivas de futuro' del artículo se listan exactamente esas cuatro áreas: (1) Fortalecimiento de la política sanitaria, (2) Programas de educación comunitaria, (3) Innovación biotecnológica y (4) Enfoque One Health."
             },
             {
-                id: 9,
-                title: "Gestión sostenible de los recursos hídricos frente al retroceso de los glaciares del Altiplano boliviano",
-                content: `El sector andino de Bolivia alberga la mayor concentración de glaciares de Sudamérica fuera de la zona polar. En las últimas cinco décadas, la superficie glaciar ha disminuido aproximadamente un 40%.
+                question: "Basándose en la información proporcionada, ¿cuál es el primer paso descrito en la iniciativa ambiental de One Health para controlar la resistencia a los antibióticos en Bolivia?",
+                options: [
+                    "Capacitación de profesionales de la salud en diagnóstico molecular",
+                    "Vigilancia de resistencia en fuentes de agua y granjas avícolas",
+                    "Restricción de venta de antibióticos sin receta médica",
+                    "Desarrollo de terapias alternativas basadas en bacteriófagos"
+                ],
+                correctAnswer: 2,
+                explanation: "En el apartado 'Enfoque One Health (Una Salud)' se indica que el Ministerio de Medio Ambiente, junto con el de Salud, 'ha lanzado proyectos de vigilancia de resistencia en fuentes de agua y en granjas avícolas' antes de cualquier otro accionar."
+            },
+            {
+                question: "Basándose en la información proporcionada, ¿cuál es el orden cronológico correcto de las acciones realizadas por los distintos actores para enfrentar la resistencia a los antibióticos en Bolivia?",
+                options: [
+                    "Campañas educativas, diagnósticos rápidos, terapia con fagos, Ley de Uso Responsable",
+                    "Ley de Uso Responsable, campañas educativas, diagnósticos rápidos, terapia con fagos",
+                    "Terapia con fagos, diagnósticos rápidos, Ley de Uso Responsable, campañas educativas",
+                    "Diagnósticos rápidos, terapia con fagos, campañas educativas, Ley de Uso Responsable"
+                ],
+                correctAnswer: 2,
+                explanation: "La secuencia se describe en el artículo: primero, en 2022, el Gobierno aprueba la Ley de Uso Responsable de Antibióticos. Luego, organizaciones implementan campañas de educación comunitaria. Posteriormente, el Hospital Universitario de La Paz incorpora diagnósticos rápidos. Finalmente, el Instituto Nacional de Salud lleva a cabo ensayos clínicos de terapia con fagos."
+            }
+        ]
+    },
+    {
+        id: 9,
+        title: "Gestión sostenible de los recursos hídricos frente al retroceso de los glaciares del Altiplano boliviano",
+        content: `El sector andino de Bolivia alberga la mayor concentración de glaciares de Sudamérica fuera de la zona polar. En las últimas cinco décadas, la superficie glaciar ha disminuido aproximadamente un 40%.
 
 Los glaciares de alta montaña son reservorios críticos de agua dulce que liberan su contenido de forma gradual durante la estación seca, amortiguando la variabilidad climática.
 
 El retroceso de los glaciares del Altiplano boliviano es una manifestación visible del calentamiento global y tiene consecuencias directas sobre la disponibilidad de agua para la agricultura, la industria y el consumo urbano.`,
-                summary: "Este texto analiza el retroceso de los glaciares en el Altiplano boliviano debido al cambio climático y sus impactos en la disponibilidad de agua. Propone estrategias de gestión sostenible como planificación integrada de cuencas, reforestación y transición energética.",
-                questions: [
-                    {
-                        question: "El artículo señala que, para enfrentar la escasez hídrica en la cuenca del Río Desaguadero, se llevaron a cabo una serie de acciones encadenadas. ¿Cuál es el orden correcto de los actores involucrados, desde la fase de monitoreo de los glaciares hasta la de reforestación de zonas alto andinas?",
-                        options: [
-                            "USGS/NASA, Ministerio de Medio Ambiente/UMSA, Servicio Solar Boliviano",
-                            "Ministerio de Medio Ambiente, NASA, Servicio Solar Boliviano",
-                            "Servicio Solar Boliviano, UMSA, USGS/NASA",
-                            "UMSA, Servicio Solar Boliviano, Ministerio de Medio Ambiente"
-                        ],
-                        correctAnswer: 0,
-                        explanation: "El texto describe primero el monitoreo de glaciares mediante imágenes satelitales de USGS y NASA, luego la puesta en marcha del Programa de Gestión de Cuencas del Río Desaguadero impulsado por el Ministerio de Medio Ambiente y Agua en colaboración con la Universidad Mayor de San Andrés, y finalmente la reforestación de zonas alto andinas ejecutada por el Servicio Solar Boliviano."
-                    },
-                    {
-                        question: "Según el artículo, ¿en qué orden se describen las acciones que contribuyen a mitigar las implicaciones económicas del retroceso glaciar en la cuenca del Río Desaguadero?",
-                        options: [
-                            "Planificación integrada de cuencas, reforestación, generación hidroeléctrica",
-                            "Reforestación, generación hidroeléctrica, planificación integrada de cuencas",
-                            "Generación hidroeléctrica, planificación integrada de cuencas, reforestación",
-                            "Planificación integrada de cuencas, generación hidroeléctrica, reforestación"
-                        ],
-                        correctAnswer: 0,
-                        explanation: "El artículo, en la sección 'Estrategias de gestión sostenible y adaptación a largo plazo', primero presenta la planificación integrada de cuencas (PIC) como herramienta esencial, después describe la reforestación de zonas altoandinas como un componente clave, y finalmente menciona la mitigación del cambio climático a nivel nacional, incluyendo la expansión de la generación hidroeléctrica."
-                    },
-                    {
-                        question: "A partir de lo expuesto en el artículo, ¿cuáles son los dos factores principales que han intensificado la fusión glaciar (M) en el Altiplano boliviano?",
-                        options: [
-                            "Aumento de temperatura del aire y disminución de la nevada",
-                            "Contaminación atmosférica y reducción de la capa de ozono",
-                            "Aumento de radiación solar y disminución de la humedad relativa",
-                            "Expansión urbana y cambio de uso de suelo"
-                        ],
-                        correctAnswer: 0,
-                        explanation: "El artículo indica claramente que 'los factores que han intensificado M son dos: el aumento de la temperatura del aire y la disminución de la nevada'."
-                    }
-                ]
+        summary: "Este texto analiza el retroceso de los glaciares en el Altiplano boliviano debido al cambio climático y sus impactos en la disponibilidad de agua. Propone estrategias de gestión sostenible como planificación integrada de cuencas, reforestación y transición energética.",
+        questions: [
+            {
+                question: "El artículo señala que, para enfrentar la escasez hídrica en la cuenca del Río Desaguadero, se llevaron a cabo una serie de acciones encadenadas. ¿Cuál es el orden correcto de los actores involucrados, desde la fase de monitoreo de los glaciares hasta la de reforestación de zonas alto andinas?",
+                options: [
+                    "Servicio Solar Boliviano, UMSA, USGS/NASA",
+                    "USGS/NASA, Ministerio de Medio Ambiente/UMSA, Servicio Solar Boliviano",
+                    "Ministerio de Medio Ambiente, NASA, Servicio Solar Boliviano",
+                    "UMSA, Servicio Solar Boliviano, Ministerio de Medio Ambiente"
+                ],
+                correctAnswer: 2,
+                explanation: "El texto describe primero el monitoreo de glaciares mediante imágenes satelitales de USGS y NASA, luego la puesta en marcha del Programa de Gestión de Cuencas del Río Desaguadero impulsado por el Ministerio de Medio Ambiente y Agua en colaboración con la Universidad Mayor de San Andrés, y finalmente la reforestación de zonas alto andinas ejecutada por el Servicio Solar Boliviano."
             },
             {
-                id: 10,
-                title: "Inteligencia Artificial Generativa y su Impacto en la Sociedad Boliviana",
-                content: `La inteligencia artificial generativa (IAG) ha emergido como una de las tecnologías más disruptivas del siglo XXI, permitiendo la creación automática de texto, imágenes, audio y código a partir de grandes volúmenes de datos.
+                question: "Según el artículo, ¿en qué orden se describen las acciones que contribuyen a mitigar las implicaciones económicas del retroceso glaciar en la cuenca del Río Desaguadero?",
+                options: [
+                    "Generación hidroeléctrica, planificación integrada de cuencas, reforestación",
+                    "Planificación integrada de cuencas, reforestación, generación hidroeléctrica",
+                    "Reforestación, generación hidroeléctrica, planificación integrada de cuencas",
+                    "Planificación integrada de cuencas, generación hidroeléctrica, reforestación"
+                ],
+                correctAnswer: 2,
+                explanation: "El artículo, en la sección 'Estrategias de gestión sostenible y adaptación a largo plazo', primero presenta la planificación integrada de cuencas (PIC) como herramienta esencial, después describe la reforestación de zonas altoandinas como un componente clave, y finalmente menciona la mitigación del cambio climático a nivel nacional, incluyendo la expansión de la generación hidroeléctrica."
+            },
+            {
+                question: "A partir de lo expuesto en el artículo, ¿cuáles son los dos factores principales que han intensificado la fusión glaciar (M) en el Altiplano boliviano?",
+                options: [
+                    "Contaminación atmosférica y reducción de la capa de ozono",
+                    "Aumento de temperatura del aire y disminución de la nevada",
+                    "Expansión urbana y cambio de uso de suelo",
+                    "Aumento de radiación solar y disminución de la humedad relativa"
+                ],
+                correctAnswer: 2,
+                explanation: "El artículo indica claramente que 'los factores que han intensificado M son dos: el aumento de la temperatura del aire y la disminución de la nevada'."
+            }
+        ]
+    },
+    {
+        id: 10,
+        title: "Inteligencia Artificial Generativa y su Impacto en la Sociedad Boliviana",
+        content: `La inteligencia artificial generativa (IAG) ha emergido como una de las tecnologías más disruptivas del siglo XXI, permitiendo la creación automática de texto, imágenes, audio y código a partir de grandes volúmenes de datos.
 
-En los últimos cinco años, los modelos de inteligencia artificial capaces de generar contenido original han pasado de ser curiosidades académicas a herramientas de uso cotidiano.
+En los últimos cinco años, los modelos de inteligencia artificial capaces de generar contenido original han pasado de ser curiosidades académicas a herramientas de uso cotidiente.
 
 La inteligencia artificial generativa representa una revolución tecnológica con la capacidad de transformar la educación, la industria creativa y la economía informal en Bolivia.`,
-                summary: "Este texto explora la inteligencia artificial generativa (como ChatGPT) y su impacto en Bolivia. Analiza aplicaciones en educación, industria creativa y emprendimiento, así como los desafíos éticos y de acceso que plantea esta tecnología.",
-                questions: [
-                    {
-                        question: "El artículo señala que, dado que la disponibilidad de recursos computacionales en Bolivia es limitada, ¿qué beneficio principal ofrece el uso de servicios en la nube para estudiantes y pequeñas empresas?",
-                        options: [
-                            "Acceso a potencia de computación sin hardware especializado",
-                            "Mayor seguridad de datos y protección de privacidad",
-                            "Conexión gratuita a internet de alta velocidad",
-                            "Capacitación técnica en programación de IA"
-                        ],
-                        correctAnswer: 0,
-                        explanation: "Pese a la limitación de recursos computacionales en Bolivia, 'la proliferación de servicios en la nube permite a estudiantes y pequeñas empresas acceder a esta potencia sin necesidad de poseer hardware especializado'."
-                    },
-                    {
-                        question: "El artículo señala que, en el contexto de la educación secundaria, ¿cuál es el tercer paso del proceso descrito para la generación y retroalimentación de ejercicios de química?",
-                        options: [
-                            "El estudiante solicita problemas de balance de ecuaciones",
-                            "El algoritmo ajusta el nivel de dificultad",
-                            "El algoritmo evalúa la respuesta e indica errores",
-                            "El profesor revisa los resultados del algoritmo"
-                        ],
-                        correctAnswer: 2,
-                        explanation: "El algoritmo evalúa la respuesta, indica errores y sugiere conceptos revisados. Ese enunciado corresponde al tercer paso del proceso."
-                    },
-                    {
-                        question: "De acuerdo con el texto, ¿cuál es la expresión matemática exacta del mecanismo de atención utilizado en los transformadores?",
-                        options: [
-                            "Attention(Q, K, V) = softmax(QK^T/√d_k)V",
-                            "Attention(Q, K, V) = QK^T * softmax(V)",
-                            "Attention(Q, K, V) = √d_k * softmax(QK^T)V",
-                            "Attention(Q, K, V) = softmax(QK^T)V/√d_k"
-                        ],
-                        correctAnswer: 0,
-                        explanation: "En la sección 'Fundamentos técnicos de la IAG' del artículo se muestra la ecuación exacta del mecanismo de atención como: Attention(Q, K, V) = softmax((QK^{T})/√d_k) V."
-                    }
-                ]
+        summary: "Este texto explora la inteligencia artificial generativa (como ChatGPT) y su impacto en Bolivia. Analiza aplicaciones en educación, industria creativa y emprendimiento, así como los desafíos éticos y de acceso que presentan estas tecnologías.",
+        questions: [
+            {
+                question: "El artículo señala que, dado que la disponibilidad de recursos computacionales en Bolivia es limitada, ¿qué beneficio principal ofrece el uso de servicios en la nube para estudiantes y pequeñas empresas?",
+                options: [
+                    "Mayor seguridad de datos y protección de privacidad",
+                    "Acceso a potencia de computación sin hardware especializado",
+                    "Conexión gratuita a internet de alta velocidad",
+                    "Capacitación técnica en programación de IA"
+                ],
+                correctAnswer: 2,
+                explanation: "Pese a la limitación de recursos computacionales en Bolivia, 'la proliferación de servicios en la nube permite a estudiantes y pequeñas empresas acceder a esta potencia sin necesidad de poseer hardware especializado'."
+            },
+            {
+                question: "El artículo señala que, en el contexto de la educación secundaria, ¿cuál es el tercer paso del proceso descrito para la generación y retroalimentación de ejercicios de química?",
+                options: [
+                    "El profesor revisa los resultados del algoritmo",
+                    "El algoritmo evalúa la respuesta e indica errores",
+                    "El estudiante solicita problemas de balance de ecuaciones",
+                    "El algoritmo ajusta el nivel de dificultad"
+                ],
+                correctAnswer: 2,
+                explanation: "El algoritmo evalúa la respuesta, indica errores y sugiere conceptos revisados. Ese enunciado corresponde al tercer paso del proceso."
+            },
+            {
+                question: "De acuerdo con el texto, ¿cuál es la expresión matemática exacta del mecanismo de atención utilizado en los transformadores?",
+                options: [
+                    "Attention(Q, K, V) = √d_k * softmax(QK^T)V",
+                    "Attention(Q, K, V) = softmax(QK^T/√d_k)V",
+                    "Attention(Q, K, V) = QK^T * softmax(V)",
+                    "Attention(Q, K, V) = softmax(QK^T)V/√d_k"
+                ],
+                correctAnswer: 2,
+                explanation: "En la sección 'Fundamentos técnicos de la IAG' del artículo se muestra la ecuación exacta del mecanismo de atención como: Attention(Q, K, V) = softmax((QK^{T})/√d_k) V."
             }
-        ];
+        ]
+    }
+];
 
         // Función para inicializar la aplicación
         function initApp() {
@@ -1653,7 +1627,7 @@ La inteligencia artificial generativa representa una revolución tecnológica co
                 menuItem.className = 'menu-item';
                 menuItem.dataset.textId = text.id;
                 
-                    menuItem.innerHTML = `
+                menuItem.innerHTML = `
                     <h3>Texto ${text.id}</h3>
                     <p>${text.title.substring(0, 80)}...</p>
                     <div class="badge">${text.questions.length} preguntas</div>
@@ -1676,14 +1650,15 @@ La inteligencia artificial generativa representa una revolución tecnológica co
             menuGrid.appendChild(generalItem);
         }
 
-                // Configurar event listeners
+        // Configurar event listeners
         function setupEventListeners() {
             // Menú principal: selección de texto
-            document.querySelectorAll('.menu-item:not(#general-exam-item)').forEach(item => {
-                item.addEventListener('click', function() {
-                    const textId = parseInt(this.dataset.textId);
+            document.addEventListener('click', function(e) {
+                const menuItem = e.target.closest('.menu-item:not(#general-exam-item)');
+                if (menuItem) {
+                    const textId = parseInt(menuItem.dataset.textId);
                     startTextReading(textId);
-                });
+                }
             });
             
             // Examen general
@@ -1721,6 +1696,7 @@ La inteligencia artificial generativa representa una revolución tecnológica co
             
             questionSlider.addEventListener('input', function() {
                 questionValue.textContent = this.value;
+                appData.totalQuestions = parseInt(this.value);
             });
             
             // Comenzar examen
@@ -1796,18 +1772,19 @@ La inteligencia artificial generativa representa una revolución tecnológica co
             showScreen('summary-screen');
         }
 
-           function selectExamType(withHelp) {
+        function selectExamType(withHelp) {
             appData.withHelp = withHelp;
             appData.generalExam = false;
             
-            // Configurar número máximo de preguntas - AHORA 30
-            const maxQuestions = Math.min(30, appData.currentText.questions.length);
+            // Configurar número máximo de preguntas
+            const maxQuestions = appData.currentText.questions.length;
             document.getElementById('max-questions').textContent = maxQuestions;
             
             const questionSlider = document.getElementById('question-count');
             questionSlider.max = maxQuestions;
             questionSlider.value = Math.min(10, maxQuestions);
             document.getElementById('question-count-value').textContent = questionSlider.value;
+            appData.totalQuestions = parseInt(questionSlider.value);
             
             showScreen('config-screen');
         }
@@ -1816,22 +1793,22 @@ La inteligencia artificial generativa representa una revolución tecnológica co
             showScreen('exam-type-screen');
         }
 
-         function startExam() {
+        function startExam() {
             const questionCount = parseInt(document.getElementById('question-count').value);
             appData.totalQuestions = questionCount;
             
-            // Seleccionar preguntas aleatorias - AHORA HASTA 30
+            // Seleccionar preguntas aleatorias SIN REPETIR
             const allQuestions = [...appData.currentText.questions];
-            appData.currentQuestions = [];
             
-            // Mezclar preguntas
-            const shuffledQuestions = [...allQuestions].sort(() => Math.random() - 0.5);
-            
-            // Tomar la cantidad seleccionada (hasta 30)
-            const questionsToTake = Math.min(questionCount, shuffledQuestions.length);
-            for (let i = 0; i < questionsToTake; i++) {
-                appData.currentQuestions.push(shuffledQuestions[i]);
+            // Mezclar preguntas usando el algoritmo Fisher-Yates
+            const shuffledQuestions = [...allQuestions];
+            for (let i = shuffledQuestions.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffledQuestions[i], shuffledQuestions[j]] = [shuffledQuestions[j], shuffledQuestions[i]];
             }
+            
+            // Tomar la cantidad seleccionada
+            appData.currentQuestions = shuffledQuestions.slice(0, Math.min(questionCount, shuffledQuestions.length));
             
             // Inicializar datos del examen
             appData.currentQuestionIndex = 0;
@@ -1846,7 +1823,9 @@ La inteligencia artificial generativa representa una revolución tecnológica co
             // Configurar título
             if (appData.generalExam) {
                 document.getElementById('exam-title').textContent = 'Examen General';
-                document.getElementById('text-indicator').textContent = `Texto ${appData.currentQuestions[appData.currentQuestionIndex].textId}`;
+                if (appData.currentQuestions.length > 0 && appData.currentQuestions[appData.currentQuestionIndex].textId) {
+                    document.getElementById('text-indicator').textContent = `Texto ${appData.currentQuestions[appData.currentQuestionIndex].textId}`;
+                }
             } else {
                 document.getElementById('exam-title').textContent = `Evaluación: ${appData.currentText.title.substring(0, 50)}...`;
                 document.getElementById('text-indicator').textContent = '';
@@ -1861,7 +1840,7 @@ La inteligencia artificial generativa representa una revolución tecnológica co
             showScreen('exam-screen');
         }
 
-                function updateProgress() {
+        function updateProgress() {
             const progress = ((appData.currentQuestionIndex + 1) / appData.currentQuestions.length) * 100;
             document.getElementById('progress-fill').style.width = `${progress}%`;
             
@@ -1889,7 +1868,7 @@ La inteligencia artificial generativa representa una revolución tecnológica co
                     <ul class="options-list">
             `;
             
-                        // Mostrar opciones
+            // Mostrar opciones
             question.options.forEach((option, index) => {
                 let optionClass = 'option-item';
                 
@@ -1929,19 +1908,21 @@ La inteligencia artificial generativa representa una revolución tecnológica co
             });
             
             // Si es examen general, mostrar el texto correspondiente antes de las preguntas
-            if (appData.generalExam && !appData.generalExamTextsShown.includes(question.textId)) {
+            if (appData.generalExam && question.textId && !appData.generalExamTextsShown.includes(question.textId)) {
                 const text = texts.find(t => t.id === question.textId);
-                const textHTML = `
-                    <div class="question-container" style="background-color: #f0f7ff;">
-                        <h3>Texto ${question.textId}: ${text.title}</h3>
-                        <div style="max-height: 200px; overflow-y: auto; margin-top: 10px; padding: 10px; background-color: #f9f9f9; border-radius: 5px;">
-                            <p>${text.content.substring(0, 500)}...</p>
+                if (text) {
+                    const textHTML = `
+                        <div class="question-container" style="background-color: #f0f7ff;">
+                            <h3>Texto ${question.textId}: ${text.title}</h3>
+                            <div style="max-height: 200px; overflow-y: auto; margin-top: 10px; padding: 10px; background-color: #f9f9f9; border-radius: 5px;">
+                                <p>${text.content.substring(0, 500)}...</p>
+                            </div>
                         </div>
-                    </div>
-                `;
-                
-                container.innerHTML = textHTML + container.innerHTML;
-                appData.generalExamTextsShown.push(question.textId);
+                    `;
+                    
+                    container.innerHTML = textHTML + container.innerHTML;
+                    appData.generalExamTextsShown.push(question.textId);
+                }
             }
         }
 
@@ -2079,7 +2060,7 @@ La inteligencia artificial generativa representa una revolución tecnológica co
             showScreen('general-exam-config');
         }
 
-                function startGeneralExam() {
+        function startGeneralExam() {
             appData.generalExam = true;
             appData.withHelp = false; // Examen general siempre es sin ayuda durante el examen
             appData.totalQuestions = 30; // 3 preguntas por cada uno de los 10 textos
